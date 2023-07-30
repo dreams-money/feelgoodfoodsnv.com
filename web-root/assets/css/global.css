@@ -1,0 +1,105 @@
+:root {
+ --lawn: #6D8947;
+ --beige: #E5D0B8;
+ --creme: rgba(255, 251, 251, .6);
+ --shae: #A88D8D;
+}
+
+@font-face {
+ font-family: 'Alice';
+ src: url('/assets/fonts/alice.woff2') format('woff2');
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+
+* {
+ margin: 0;
+ padding: 0;
+ font-family: 'Alice', Georgia, 'Times New Roman', Times, serif
+}
+
+ .p {
+  font-size: 1em;
+ }
+
+.flex_column {
+ display: flex;
+ flex-direction: column;
+}
+
+.flex_row {
+ display: flex;
+}
+
+.flex_wrap {
+ flex-wrap: wrap;
+}
+
+.gap_8 {
+    gap: 8px;
+}
+
+.gap_16 {
+    gap: 16px;
+}
+
+.flex_x_center {
+ align-items: center;
+}
+
+.flex_y_center {
+ justify-content: center;
+}
+
+.w_100 {
+ width: 100px;
+}
+
+.w_200 {
+ width: 200px;
+}
+
+.w_300 {
+ width: 300px;
+}
+
+.w_400 {
+ width: 400px;
+}
+
+.w_500 {
+ width: 500px;
+}
+
+.w_full {
+ width: 100%;
+}
+
+.h_full {
+ height: 100vh;
+}
+
+.mt_8 {
+ margin-top: 8px;
+}
+
+.mt_16 {
+ margin-top: 16px;
+}
+
+.mt_32 {
+ margin-top: 32px;
+}
+
+.mb_8 {
+ margin-bottom: 8px;
+}
+
+.mb_16 {
+ margin-bottom: 16px;
+}
+
+.mb_32 {
+ margin-bottom: 32px;
+}

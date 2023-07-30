@@ -1,0 +1,155 @@
+{{define "admin/menuItem"}}
+{{template "header" args "page" "admin/menuItem" "title" "Put in work" "description" ""}}
+<div class="container flex_column flex_x_center w_full">
+ <style>
+ img {
+  max-width: 200px;
+ }
+ </style>
+ <h1>Menu Items</h1>
+ <div class="flex_column">
+  {{ range $key, $value := .listing }}
+  <a href="./?edit={{ $key }}">{{ $value }}</a>
+  {{ end }}
+ </div>
+ <h2>{{ if .menuItem.Description }}Edit{{ else }}Create{{ end }}</h2>
+ {{ if .menuItem.Description }}
+ <p>
+  <a href="/admin/menu-item/">
+   Back
+  </a>
+ </p>
+ {{ else }}
+ <p>
+  <a href="/admin/home/">
+   Back
+  </a>
+ </p>
+ {{ end }}
+ <form method="post" enctype="multipart/form-data" class="flex_column w_300">
+  <label for="name">Name</label>
+  <input
+   type="text"
+   placeholder="Name"
+   id="name"
+   name="name"
+   value="{{ if .menuItem.Name }}{{ .menuItem.Name }}{{ end }}"
+  >
+  <label for="category">Category</label>
+  <select id="category" name="category">
+   <option value="breakfast"
+    {{ if .breakfast }}selected{{ end }}
+   >
+    Breakfast
+   </option>
+   <option value="lunch"
+    {{ if .lunch }}selected{{ end }}
+   >
+    Lunch
+   </option>
+  </select>
+
+  <label for="description">Description</label>
+  <textarea
+   type="text"
+   placeholder="Description"
+   id="description"
+   name="description"
+   rows="5"
+  >{{ if .menuItem.Description }}{{ .menuItem.Description }}{{ end }}</textarea>
+
+  <label for="price">
+    Price
+  </label>
+  <div>
+    $
+    <input
+      type="number"
+      min="0.01"
+      step="0.01"
+      max="250"
+      placeholder="Price"
+      id="price"
+      name="price"
+      value="{{ if .menuItem.Price }}{{ .menuItem.Price }}{{ end }}"
+    >
+  </div>
+
+  <label for="image">Image</label>
+  <div class="img-container">
+   {{ if .menuItem.Image }}
+   <img src="{{ .menuItem.Image }}" id="img-preview">
+   {{ end }}
+  </div>
+  <input type="file" id="image" name="image">
+
+  <label for="cals">Calories</label>
+  <input
+    type="number"
+    placeholder="Calories"
+    id="cals"
+    name="cals"
+    value="{{ if .menuItem.NutritionLabel.Calories }}{{ .menuItem.NutritionLabel.Calories }}{{ end }}"
+  >
+
+  <label for="carbs">Carbs</label>
+  <input
+    type="number"
+    placeholder="Carbs"
+    id="carbs"
+    name="carbs"
+    value="{{ if .menuItem.NutritionLabel.Carbohydrates }}{{ .menuItem.NutritionLabel.Carbohydrates }}{{ end }}"
+  >
+
+  <label for="protiens">Protiens</label>
+  <input
+    type="number"
+    placeholder="Protiens"
+    id="protiens"
+    name="protiens"
+    value="{{ if .menuItem.NutritionLabel.Protiens }}{{ .menuItem.NutritionLabel.Protiens }}{{ end }}"
+  >
+
+  <label for="fats">Fats</label>
+  <input
+    type="number"
+    placeholder="Fats"
+    id="fats"
+    name="fats"
+    value="{{ if .menuItem.NutritionLabel.Fats }}{{ .menuItem.NutritionLabel.Fats }}{{ end }}"
+  >
+
+  <div class="flex_row">
+   <label for="spicy">Spicy</label>
+   <input type="checkbox" id="spicy" name="qualities" value="spicy" {{ if .spicy }}checked{{ end }}>
+   <label for="nuts">Nuts</label>
+   <input type="checkbox" id="nuts" name="qualities" value="nuts" {{ if .nuts }}checked{{ end }}>
+   <label for="dairy">Dairy</label>
+   <input type="checkbox" id="dairy" name="qualities" value="dairy" {{ if .dairy }}checked{{ end }}>
+  </div>
+
+  <input type="submit" value="Submit">
+  <script>
+   // Image preview on upload
+   document.getElementById('image').addEventListener('change', evt => {
+    const tgt = evt.target || window.event.srcElement,
+    files = tgt.files;
+    if (FileReader && files && files.length) {
+     const fr = new FileReader();
+     fr.onload = function () {
+      let img = document.getElementById('img-preview');
+      if ( ! img) {
+       img = document.createElement('img');
+       img.id = 'img-preview'
+      }
+      img.src = fr.result;
+      document.querySelector('.img-container').appendChild(img);
+     }
+     fr.readAsDataURL(files[0]);
+    }
+   });
+  </script>
+ </form>
+</div>
+{{template "footer"}}
+{{end}}

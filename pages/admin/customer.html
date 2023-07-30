@@ -1,0 +1,188 @@
+{{define "admin/customer"}}
+{{template "header" args "page" "admin/customer" "title" "Put in work" "description" ""}}
+<div class="container flex_column flex_x_center w_full h_full">
+ <h1>Customer</h1>
+ <div class="flex_column">
+  {{ range $key, $value := .listing }}
+  <a href="./?edit={{ $key }}">{{ $value }}</a>
+  {{ end }}
+ </div>
+ <h2>{{ if .customer.FirstName }}Edit{{ else }}Create{{ end }}</h2>
+ {{ if .customer.FirstName }}
+ <p>
+  <a href="/admin/customer/">
+   Back
+  </a>
+ </p>
+ {{ else }}
+ <p>
+  <a href="/admin/home/">
+   Back
+  </a>
+ </p>
+ {{ end }}
+ <form method="post" class="flex_column w_300">
+  <div class="form-input">
+   <label for="first">First Name</label>
+   <input
+    type="text"
+    placeholder="First Name"
+    id="first"
+    name="first"
+    value="{{ if .customer.FirstName }}{{ .customer.FirstName }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="last">Last Name</label>
+   <input
+    type="text"
+    placeholder="Last Name"
+    id="last"
+    name="last"
+    value="{{ if .customer.LastName }}{{ .customer.LastName }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="phone">Phone</label>
+   <input
+    type="tel"
+    placeholder="Phone"
+    id="phone"
+    name="phone"
+    value="{{ if .customer.Phone }}{{ .customer.Phone }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="email">Email</label>
+   <input
+    type="email"
+    placeholder="Email"
+    id="email"
+    name="email"
+    value="{{ if .customer.Email }}{{ .customer.Email }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="address1">Address 1</label>
+   <input
+    type="text"
+    placeholder="Address 1"
+    id="address1"
+    name="address1"
+    value="{{ if .street }}{{ .street }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="address2">Address 2</label>
+   <input
+    type="text"
+    placeholder="Address 2"
+    id="address2"
+    name="address2"
+   >
+  </div>
+  <div class="form-input">
+   <label for="city">City</label>
+   <input
+    type="text"
+    placeholder="City"
+    id="city"
+    name="city"
+    value="{{ if .city }}{{ .city }}{{ end }}"
+   >
+  </div>
+  <div class="form-input">
+   <label for="state">State</label>
+   <select id="state" name="state">
+    <option value="NV" {{ if eq .state "NV" }}selected{{ end }}>Nevada</option>
+    <option value="AL" {{ if eq .state "AL" }}selected{{ end }}>Alabama</option>
+    <option value="AK" {{ if eq .state "AK" }}selected{{ end }}>Alaska</option>
+    <option value="AZ" {{ if eq .state "AZ" }}selected{{ end }}>Arizona</option>
+    <option value="AR" {{ if eq .state "AR" }}selected{{ end }}>Arkansas</option>
+    <option value="CA" {{ if eq .state "CA" }}selected{{ end }}>California</option>
+    <option value="CO" {{ if eq .state "CO" }}selected{{ end }}>Colorado</option>
+    <option value="CT" {{ if eq .state "CT" }}selected{{ end }}>Connecticut</option>
+    <option value="DE" {{ if eq .state "DE" }}selected{{ end }}>Delaware</option>
+    <option value="DC" {{ if eq .state "DC" }}selected{{ end }}>District Of Columbia</option>
+    <option value="FL" {{ if eq .state "FL" }}selected{{ end }}>Florida</option>
+    <option value="GA" {{ if eq .state "GA" }}selected{{ end }}>Georgia</option>
+    <option value="HI" {{ if eq .state "HI" }}selected{{ end }}>Hawaii</option>
+    <option value="ID" {{ if eq .state "ID" }}selected{{ end }}>Idaho</option>
+    <option value="IL" {{ if eq .state "IL" }}selected{{ end }}>Illinois</option>
+    <option value="IN" {{ if eq .state "IN" }}selected{{ end }}>Indiana</option>
+    <option value="IA" {{ if eq .state "IA" }}selected{{ end }}>Iowa</option>
+    <option value="KS" {{ if eq .state "KS" }}selected{{ end }}>Kansas</option>
+    <option value="KY" {{ if eq .state "KY" }}selected{{ end }}>Kentucky</option>
+    <option value="LA" {{ if eq .state "LA" }}selected{{ end }}>Louisiana</option>
+    <option value="ME" {{ if eq .state "ME" }}selected{{ end }}>Maine</option>
+    <option value="MD" {{ if eq .state "MD" }}selected{{ end }}>Maryland</option>
+    <option value="MA" {{ if eq .state "MA" }}selected{{ end }}>Massachusetts</option>
+    <option value="MI" {{ if eq .state "MI" }}selected{{ end }}>Michigan</option>
+    <option value="MN" {{ if eq .state "MN" }}selected{{ end }}>Minnesota</option>
+    <option value="MS" {{ if eq .state "MS" }}selected{{ end }}>Mississippi</option>
+    <option value="MO" {{ if eq .state "MO" }}selected{{ end }}>Missouri</option>
+    <option value="MT" {{ if eq .state "MT" }}selected{{ end }}>Montana</option>
+    <option value="NE" {{ if eq .state "NE" }}selected{{ end }}>Nebraska</option>
+    <option value="NV">Nevada</option>
+    <option value="NH" {{ if eq .state "NH" }}selected{{ end }}>New Hampshire</option>
+    <option value="NJ" {{ if eq .state "NJ" }}selected{{ end }}>New Jersey</option>
+    <option value="NM" {{ if eq .state "NM" }}selected{{ end }}>New Mexico</option>
+    <option value="NY" {{ if eq .state "NY" }}selected{{ end }}>New York</option>
+    <option value="NC" {{ if eq .state "NC" }}selected{{ end }}>North Carolina</option>
+    <option value="ND" {{ if eq .state "ND" }}selected{{ end }}>North Dakota</option>
+    <option value="OH" {{ if eq .state "OH" }}selected{{ end }}>Ohio</option>
+    <option value="OK" {{ if eq .state "OK" }}selected{{ end }}>Oklahoma</option>
+    <option value="OR" {{ if eq .state "OR" }}selected{{ end }}>Oregon</option>
+    <option value="PA" {{ if eq .state "PA" }}selected{{ end }}>Pennsylvania</option>
+    <option value="RI" {{ if eq .state "RI" }}selected{{ end }}>Rhode Island</option>
+    <option value="SC" {{ if eq .state "SC" }}selected{{ end }}>South Carolina</option>
+    <option value="SD" {{ if eq .state "SD" }}selected{{ end }}>South Dakota</option>
+    <option value="TN" {{ if eq .state "TN" }}selected{{ end }}>Tennessee</option>
+    <option value="TX" {{ if eq .state "TX" }}selected{{ end }}>Texas</option>
+    <option value="UT" {{ if eq .state "UT" }}selected{{ end }}>Utah</option>
+    <option value="VT" {{ if eq .state "VT" }}selected{{ end }}>Vermont</option>
+    <option value="VA" {{ if eq .state "NV" }}selected{{ end }}>Virginia</option>
+    <option value="WA" {{ if eq .state "VA" }}selected{{ end }}>Washington</option>
+    <option value="WV" {{ if eq .state "WV" }}selected{{ end }}>West Virginia</option>
+    <option value="WI" {{ if eq .state "WI" }}selected{{ end }}>Wisconsin</option>
+    <option value="WY" {{ if eq .state "WY" }}selected{{ end }}>Wyoming</option>
+   </select>
+  </div>
+  <div class="form-input">
+   <label for="postal">Postal</label>
+   <input
+    type="text"
+    placeholder="Postal"
+    id="postal"
+    name="postal"
+    value="{{ if .postal }}{{ .postal }}{{ end }}"
+
+   >
+  </div>
+  <input type="submit" value="Submit">
+  <!--
+   type Address struct {
+    Type    string `json:"type"`
+    Street  string `json:"street"`
+    City    string `json:"city"`
+    State   string `json:"state"`
+    Postal  string `json:"postal"`
+    Timestamps `json:"timestamps"`
+   }
+
+   type Customer struct {
+    ID     persisters.ID  `json:"id"`
+    FirstName string   `json:"first_name"`
+    LastName  string   `json:"last_name"`
+    Phone  string   `json:"phone"`
+    Email  string   `json:"email"`
+    Addresses []Address   `json:"addresses"`
+    BillerTokens map[string]string `json:"biller_tokens"`
+    Favorites []string    `json:"favorites"`
+    Timestamps   `json:"timestamps"`
+   }
+   -->
+ </form>
+</div>
+{{template "footer"}}
+{{end}}

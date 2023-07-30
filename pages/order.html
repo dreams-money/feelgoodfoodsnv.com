@@ -1,0 +1,62 @@
+{{define "order"}}
+{{template "header" args "page" "Order" "title" "Order Food" "description" "Order meal delivery from Feel Good Foods"}}
+<div class="header">
+  <h1 class="p">
+    Next weeks menu
+  </h1>
+  <h2 class="p">
+    {{.WeekOf}}
+  </h2>
+</div>
+<hr>
+<hr>
+<!-- For each -->
+{{range $menuItemId, $menuItem := .MenuItems}}
+<div class="menu_item" menu-id="{{$menuItemId}}">
+  <img
+    src="{{$menuItem.Image}}"
+    class="menu_item_photo"
+  >
+  <div class="menu_item_detail">
+    <h3 class="p">
+      {{$menuItem.Name}}
+    </h3>
+    <p class="description p">
+      {{$menuItem.Description}}
+    </p>
+    <p class="price p">
+      $<span class="item_price">{{$menuItem.Price}}</span> {{$menuItem.NutritionLabel.Calories}} cal/{{$menuItem.NutritionLabel.Protiens}}p/{{$menuItem.NutritionLabel.Carbohydrates}}c/{{$menuItem.NutritionLabel.Fats}}f
+    </p>
+    <div class="quantity_control mt_8">
+      <div class="subtract quantity_btn">-</div>
+      <div class="quantity">0</div>
+      <div class="add quantity_btn">+</div>
+    </div>
+  </div>
+</div>
+{{end}}
+<a href="#" class="order_btn" id="submit_btn">
+ ORDER
+</a>
+<div class="ticker">
+ <span>
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+ </span>
+ <span>
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Friday.
+ </span>
+</div>
+
+<script src="/assets/scripts/order.js"></script>
+{{template "footer"}}
+{{end}}

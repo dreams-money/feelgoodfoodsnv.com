@@ -1,0 +1,66 @@
+{{define "receipt"}}
+{{template "header" args "page" "receipt" "title" "Order Receipt" "description" "Your order receipt"}}
+<div class="container">
+    <h1 class="p mt_16">
+        Order Receipt
+    </h1>
+    <h2 class="p mt_16">
+        Order number: {{.Order.ID}}
+    </h2>
+    <div class="sub_container">
+        <div class="errors">
+            <div class="error">
+                {{$.Errors}}
+            </div>
+        </div>
+        <div class="order_items">
+            {{range $orderItem := .Order.Items}}
+            <div class="order_item mt_16">
+                <h2 class="p">
+                    {{$orderItem.MenuItem.Name}}
+                    <span class="quantity">X{{$orderItem.Quantity}}</span>
+                </h2>
+                <hr class="mb_16">
+                <div class="order_item_detail">
+                    <img
+                        class="item_img"
+                        src="{{$orderItem.MenuItem.Image}}"
+                    >
+                    <p class="order_item_desc">
+                        {{$orderItem.MenuItem.Description}}
+                    </p>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        <div class="totals mt_32">
+            <div class="subtotal">
+                Subtotal...................................
+                <span>${{.Order.SubTotal}}</span>
+            </div>
+            {{range $feeName, $feeAmount := .Order.Fees}}
+            <div class="delivery_fee">
+                {{$feeName}} fee ..........................
+                <span>${{$feeAmount}}</span>
+            </div>
+            {{end}}
+            <div class="total">
+                Total .......................................
+                <span>${{.OrderTotal}}</span>
+            </div>
+        </div>
+    </div>
+    <p class="p mt_16">
+        Thank you!
+    </p>
+</div>
+<div class="logo_img_container">
+    <a href="https://feelgoodfoodsnv.com">
+        <img
+            src="cid:1"
+            class="logo_img"
+        >
+    </a>
+</div>
+{{template "footer"}}
+{{end}}

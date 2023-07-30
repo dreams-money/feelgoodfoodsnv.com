@@ -1,0 +1,75 @@
+{{define "admin/deliveries"}}
+{{template "header" args "page" "deliveries" "title" "Delivery Sheet" "description" ""}}
+<style>
+    .container {
+        margin: 0 auto;
+        width: 700px; /* Print margins */
+        margin-bottom: 16px;
+    }
+    .ml_8 {
+        margin-left: 8px;
+    }
+    .ml_42 {
+        margin-left: 24px;
+    }
+    .mt_8 {
+        margin-top: 8px;
+    }
+    .mt_16 {
+        margin-top: 16px;
+    }
+    .mb_8 {
+        margin-bottom: 8px;
+    }
+    .orders {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-evenly;
+    }
+    .order {
+        page-break-inside: avoid;
+    }
+    .order_border {
+        width: fit-content;
+        padding: 8px;
+        border: 1px solid black;
+        border-radius: 16px;
+    }
+</style>
+<div class="container">
+    <h1>Delivery Sheet</h1>
+    <div class="mt_16">
+        <strong>Total Orders: </strong>{{ .DeliverySheet.TotalOrders }}
+    </div>
+    <hr>
+
+    {{ range $city, $deliveryArea := .DeliverySheet.Areas}}
+    <hr>
+    <h2 class="mt_16">{{ $city }}</h2>
+      <div class="orders mt_16">
+          {{ range $ID, $order := $deliveryArea.OrderMap }}
+          <div class="order order_border">
+              <div class="mt_8">
+                  {{ $ID }} - <strong>{{ $order.Customer.FirstName }} {{ $order.Customer.LastName }}:</strong>
+                  {{ range $orderItem := $order.Items }}
+                      <span class="ml_8 order_border">
+                          {{ $orderItem.MenuItem.Name }} - {{ $orderItem.Quantity }}
+                      </span>
+                  {{ end }}
+              </div>
+              <div class="ml_42 mt_16">
+                  {{(index $order.Customer.Addresses 0).Line1}}<br>
+                  {{(index $order.Customer.Addresses 0).Line2}}<br>
+                  {{(index $order.Customer.Addresses 0).City}}
+                  {{(index $order.Customer.Addresses 0).State}}
+                  {{(index $order.Customer.Addresses 0).Postal}}
+              </div>
+          </div>
+          {{ end }}
+      </div>
+    {{ end }}
+</div>
+{{template "footer"}}
+{{end}}
+

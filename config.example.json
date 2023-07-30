@@ -1,0 +1,28 @@
+{
+    "environment": "dev",
+    // Certain options are ignored in dev mode
+    "http_port": 80,
+    "tls_port": 443,
+    "hosts": [
+        "feelgoodfoodsnv.com",
+        "www.feelgoodfoodsnv.com"
+    ],
+    // Currently supports Square
+    "payments_public_key": {
+        "prd": "sq0idp-0FYxSa-cEjsSAMPLE88Vbg",
+        "dev": "sandbox-sq0idb-YiB8dDpwSAMPLEI9L518Pg"
+    },
+    "payments_private_key": {
+        "prd": "EAAAEOuR3C2TXWGzV0owgh69jQMSAMPLE69K6FuV4N95deun8QHPSygNR_K-bAOj",
+        "dev": "EAAAELPGnJHGL-xJDkRMedYdOGV8VcdKEjQs3R5BE5JI_l5lW9jTASAMPLEWYSgB"
+    }
+    // Currently supports Sendgrid
+    "mailer_key": {
+        "prd": "",
+        "dev": "SG.xWkgFSAMPLEdJX14piQ8g.E7_dJWlIYZSAMPLECZ-4oU-0_OSThBlMwPSAMPLEj0M"
+    },
+    "mailer_from_email": {
+        "prd": "",
+        "dev": "cevega17@gmail.com"
+    }
+}

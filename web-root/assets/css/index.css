@@ -1,0 +1,111 @@
+
+
+.container {
+  background-image: url('/assets/img/homepage-bg-mobile-lo-res.webp');
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-color: var(--creme);
+  width: 100%;
+  height: 100vh;
+}
+
+@media only screen and (min-height: 300px) {
+  .container {
+    height: calc(100vh + 32px);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+
+  /* Larger than picture size */
+  .container {
+    background-size: 420px;
+    background-position-x: center;
+    height: initial;
+  }
+
+  body {
+    background-color: var(--creme);
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .container {
+    height: initial;
+  }
+}
+
+nav {
+  background-color: var(--lawn);
+  display: flex;
+  justify-content: space-around;
+  height: 15px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  width: 89px;
+  height: 93px;
+}
+
+.cynthia-pic {
+  width: 185px;
+  height: 165px;
+}
+
+.no-display {
+  display: none;
+}
+
+.h {
+  text-align: center;
+}
+
+.p {
+  max-width: 316px;
+}
+
+@media only screen and (max-width: 280px) {
+  .p {
+    margin: 8px 16px;
+  }
+}
+
+.mt_10 {
+  margin-top: 10px;
+}
+
+.mt_20 {
+  margin-top: 20px;
+}
+
+.mt_50 {
+  margin-top: 50px;
+}
+
+.continue {
+  width: 160px;
+  height: 26px;
+  position: relative;
+  left: 120px;
+
+  border-radius: 100%;
+  background-color: rgb(108, 81, 81); /* Darker than shae */
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media only screen and (max-width: 400px) {
+  .continue {
+    left: 0;
+  }
+}
+
+.continue:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,48 @@
+{{define "admin/menu"}}
+{{template "header" args "page" "admin/menu" "title" "Leave em in the dirt" "description" ""}}
+<div class="container flex_column flex_x_center flex_y_center w_full">
+ <style>
+
+ </style>
+ <h1>Menu</h1>
+
+ <p>
+  <a href="/admin/home/">
+   Back
+  </a>
+ </p>
+
+ <form method="post" class="form flex_column flex_x_center flex_y_center w_full mt_8">
+  {{range $key, $item := .menuItems}}
+  <div>
+    <label for="{{$key}}">{{$item.Name}}</label>
+    {{if $item.Active}}
+    <input
+      type="checkbox"
+      id="{{$key}}"
+      name="active_menu"
+      value="{{$key}}"
+      checked
+    >
+    {{else}}
+    <input
+      type="checkbox"
+      id="{{$key}}"
+      name="active_menu"
+      value="{{$key}}"
+    >
+    {{end}}
+  </div>
+  {{end}}
+  <input type="submit" value="Submit" class="mt_8">
+ </form>
+
+ <p class="mt_8">
+  <a href="/admin/home/">
+   Back
+  </a>
+ </p>
+
+</div>
+{{template "footer"}}
+{{end}}

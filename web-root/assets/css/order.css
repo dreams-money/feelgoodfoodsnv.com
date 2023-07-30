@@ -1,0 +1,138 @@
+body {
+  background-color: var(--lawn);
+}
+
+.header {
+  background-image: url('/assets/img/page2-header.jpg');
+  background-size: cover;
+  background-position: center;
+  max-width: 362px;
+  height: 163px;
+
+  margin: 30px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  margin-top: 45px;
+}
+
+.p {
+  font-size: 0.75em;
+}
+
+hr {
+  width: 80%;
+  margin: 10px auto;
+  border-color: var(--beige);
+  border-style: solid;
+  border-width: 0.5px;
+}
+
+.menu_item {
+  display: flex;
+  justify-content: space-evenly;
+
+  --border-visible: rgba(229, 208, 184, 1);
+  --border-nosee: rgba(229, 208, 184, 0);
+
+  border: 1px solid;
+  border-color: var(--border-nosee);
+  border-radius: 5px;
+
+  padding: 8px 0;
+  margin: 8px auto 0;
+  width: 80%;
+  max-width: 550px;
+  gap: 8px;
+}
+
+@media only screen and (max-width: 450px) {
+  .menu_item {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.menu_item_photo {
+  width: 167px;
+}
+
+.menu_item_detail {
+  display: inline-block;
+  width: 180px;
+}
+
+.description {
+  margin: 5px 0;
+}
+
+.price {
+  color: white;
+}
+
+.quantity_control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+.quantity {
+  margin: 0 8px;
+}
+
+.quantity_btn {
+  --size: 25px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 100%;
+  border: none;
+  background-color: var(--beige);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order_btn {
+  display: block;
+  width: 200px;
+  height: 26px;
+  border-radius: 100%;
+  margin: 20px auto;
+
+  color: black;
+  background-color: var(--beige);
+  text-align: center;
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.ticker {
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ticker span {
+  display: inline-block;
+  animation: slide 20s linear infinite;
+}
+
+.ticker:hover * {
+  animation-play-state: paused;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}

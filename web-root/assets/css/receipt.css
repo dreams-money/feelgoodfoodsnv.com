@@ -1,0 +1,84 @@
+body {
+   background-image: url('/assets/img/page-7-shrimp-bg.jpg');
+   background-size: 600px;
+   background-position-x: -85px;
+   background-color: var(--beige);
+
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+}
+
+@media only screen and (min-width: 600px) {
+   body {
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-color: var(--beige);
+   }
+}
+
+.container {
+   margin: 10px 16px 32px;
+   background: #6D8947;
+   opacity: 0.8;
+   border-radius: 100px;
+   height: 782px;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   max-width: 600px;
+}
+
+.sub_container {
+   padding: 20px;
+}
+
+.error {
+   color: darkred;
+}
+
+hr {
+   border-style: none;
+   display: block;
+   width: 90%;
+   height: 5px;
+   background-color: #B0C5C8;
+}
+
+.order_item_detail {
+   display: flex;
+}
+
+@media only screen and (max-width: 374px) {
+   .order_item_detail {
+      flex-direction: column;
+   }
+}
+
+.item_img {
+   width: 155px;
+}
+
+.order_item_desc {
+   display: inline-block;
+   width: 173px;
+   text-align: right;
+}
+
+@media only screen and (max-width: 374px) {
+   .order_item_desc {
+      text-align: unset;
+   }
+}
+
+.totals {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.logo_img {
+   position: relative;
+   top: -80px;
+}

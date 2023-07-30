@@ -1,0 +1,13 @@
+{{define "admin/index"}}
+{{template "header" args "page" "admin" "title" "Feelgoodfoodsnv.com | Admin" "description" "Admin login"}}
+<div class="container">
+ <form method="post">
+  <label for="email">Email</label>
+  <input type="email" placeholder="Email" id="email" name="email">
+  <label for="password">Password</label>
+  <input type="password" placeholder="Password" id="password" name="password">
+  <input type="submit" value="Submit">
+ </form>
+</div>
+{{template "footer"}}
+{{end}}

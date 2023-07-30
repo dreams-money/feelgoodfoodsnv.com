@@ -1,0 +1,9 @@
+web-root/*.html
+web-root/admin/*.html
+data
+log
+main
+main.exe
+config.json
+web-root/assets/scripts/pay.js
+.vscode/

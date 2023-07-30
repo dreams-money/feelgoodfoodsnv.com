@@ -1,0 +1,85 @@
+{{define "pay"}}
+{{template "header" args "page" "Pay" "title" "Pay for your order" "description" "Pay for your order"}}
+<div class="header center_x"></div>
+<div class="container center_x mb_16">
+ <h1 class="p mb_8">Checkout</h1>
+ <form id="customer_form" action="#">
+  <input
+   type="tel"
+   name="phone"
+   id="phone"
+   placeholder="Cell phone number"
+   class="mb_8"
+   autofocus
+   required
+   pattern="[0-9]{10}"
+   title="0000000000"
+  >
+  <input
+   type="text"
+   name="first_name"
+   id="first_name"
+   placeholder="First Name"
+   class="mb_8"
+   required
+  >
+  <input
+   type="text"
+   name="last_name"
+   id="last_name"
+   placeholder="Last Name"
+   class="mb_8"
+   required
+  >
+  <input
+   type="text"
+   name="postal"
+   id="postal"
+   placeholder="Delivery Postal Code"
+   class="mb_8"
+   required
+   pattern="^\d{5}(?:[-\s]\d{4})?$"
+   title="00000"
+  >
+  <input
+   type="text"
+   name="street1"
+   id="street1"
+   required
+   placeholder="Delivery Address 1"
+   class="mb_8"
+  >
+  <input
+   type="text"
+   name="street2"
+   id="street2"
+   placeholder="Delivery Address 2"
+   class="mb_8"
+  >
+  <input
+   type="textarea"
+   name="allergies"
+   id="allergies"
+   placeholder="Allergies"
+   class="mb_16"
+  >
+  <input
+   type="email"
+   name="email"
+   id="email"
+   placeholder="Email"
+   class="mb_8"
+  >
+ </form>
+ <h2 class="p mb_8">Payment method</h2>
+ <form id="payment-form">
+     <div id="card-container"></div>
+     <p class="p mb_8">
+        <strong>Charge Amount</strong>: ${{.OrderTotal}}
+    </p>
+    <button id="card-button" type="button">Place Order</button>
+ </form>
+ <div id="payment-status-container"></div>
+</div>
+{{template "footer"}}
+{{end}}

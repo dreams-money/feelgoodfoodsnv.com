@@ -1,0 +1,49 @@
+{{define "admin/orders"}}
+{{template "header" args "page" "admin/orders" "title" "Order Sheet" "description" ""}}
+<style>
+    .container {
+        margin: 0 auto;
+        width: 700px; /* Print margins */
+        margin-bottom: 16px;
+    }
+    .mt_16 {
+        margin-top: 16px;
+    }
+    .mb_8 {
+        margin-bottom: 8px;
+    }
+</style>
+<div class="container">
+    <div class="mt_16">
+        <strong>Total Orders: </strong>{{ .OrderSheet.TotalOrders }}
+    </div>
+    <hr>
+
+    <div class="mt_16">
+        <strong>Totals by Meal: </strong>
+        {{ range $meal, $total := .OrderSheet.TotalsByMeal }}
+            {{ $meal }} - {{ $total }}
+        {{ end }}
+    </div>
+    <hr>
+
+    <h2 class="mt_16 mb_8">Orders: </h2>
+    {{ range $ID, $order := .OrderSheet.Orders }}
+      <div>
+        {{ $ID }} - <strong>{{ $order.Customer.FirstName }} {{ $order.Customer.LastName }}:</strong>
+        {{ range $orderItem := $order.Items }}
+            <span>
+                {{ $orderItem.MenuItem.Name }} - {{ $orderItem.Quantity }}
+            </span>
+        {{ end }}
+      </div>
+    {{ end }}
+    <hr class="mt_16">
+
+    <div class="mt_16">
+        <strong>Total Revenue</strong>
+        ${{ .OrderSheet.TotalRevenue }}
+    </div>
+</div>
+{{template "footer"}}
+{{end}}

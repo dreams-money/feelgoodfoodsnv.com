@@ -1,0 +1,64 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+
+ <meta name="description" content="{{$.description}}">
+ <meta name="keywords" content="local, delivery, food, meals, healthy, carson city, minden, reno">
+
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <link rel="canonical" href="https://feelgoodfoodsnv.com" />
+
+ <link rel="stylesheet" href="/assets/css/global.css">
+
+ {{ if eq $.page "about" }}
+ <link rel="stylesheet" href="/assets/css/about.css">
+ {{ end }}
+ {{ if eq $.page "faq" }}
+ <link rel="stylesheet" href="/assets/css/faq.css">
+ {{ end }}
+ {{ if eq $.page "Home" }}
+ <link rel="stylesheet" href="/assets/css/index.css">
+ {{ end }}
+ {{ if eq $.page "Order" }}
+ <link rel="stylesheet" href="/assets/css/order.css">
+ {{ end }}
+ {{ if eq $.page "Pay" }}
+ <link rel="stylesheet" href="/assets/css/pay.css">
+  {{ if eq .environment "dev" }}
+ <script
+   type="text/javascript"
+   src="https://sandbox.web.squarecdn.com/v1/square.js"
+   ></script>
+  {{else}}
+  <script
+  type="text/javascript"
+  src="https://web.squarecdn.com/v1/square.js"
+  ></script>
+  {{end}}
+ <script
+   type="text/javascript"
+   src="/assets/scripts/pay.js"
+   ></script>
+ {{ end }}
+ {{ if eq $.page "review" }}
+ <link rel="stylesheet" href="/assets/css/review.css">
+ <script src="/assets/scripts/review.js"></script>
+ {{ end }}
+ {{ if eq $.page "receipt" }}
+ <link rel="stylesheet" href="/assets/css/receipt.css">
+ {{ end }}
+ {{ if eq $.page "Schedule" }}
+ <link rel="stylesheet" href="/assets/css/schedule.css">
+ {{ end }}
+ {{ if eq $.page "testimonials" }}
+ <link rel="stylesheet" href="/assets/css/testimonials.css">
+ {{ end }}
+
+ <title>{{$.title}}</title>
+</head>
+<body>
+{{end}}

@@ -1,0 +1,19 @@
+{{define "admin/slots"}}
+{{template "header" args "page" "admin/slots" "title" "Put in work" "description" ""}}
+<div class="container flex_column flex_x_center flex_y_center w_full h_full">
+ <h1>Delivery Slots</h1>
+ <p>
+  <a href="/admin/home">
+   Back
+  </a>
+  </p>
+ {{range $week, $weekObject := .}}
+ <h8>W {{$week}}</h8>
+ <a href="/admin/slot/{{$weekObject.Year}}/{{$week}}/2">Mon {{$weekObject.MondayDate}}</a>
+ <a href="/admin/slot/{{$weekObject.Year}}/{{$week}}/4">Wed {{$weekObject.WednesdayDate}}</a>
+ {{end}}
+</nav>
+
+</div>
+{{template "footer"}}
+{{end}}

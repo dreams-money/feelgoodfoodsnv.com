@@ -1,0 +1,12 @@
+{{define "admin/home"}}
+{{template "header" args "page" "home" "title" "Put in work" "description" ""}}
+<div class="container flex_row flex_x_center gap_16 flex_y_center w_full h_full">
+  <a href="/admin/customer">Customer</a>
+  <a href="/admin/menu-item">Menu Items</a>
+  <a href="/admin/menu">Menu</a>
+  <a href="/admin/slot">Order Fulfillment Slots</a>
+  <a href="/admin/orders">Orders</a>
+  <a href="/admin/deliveries">Deliveries</a>
+</div>
+{{template "footer"}}
+{{end}}

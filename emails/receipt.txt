@@ -1,0 +1,19 @@
+{{define "receipt"}}
+Food Order Receipt
+
+Order Number: {{.Order.ID}}
+{{range $orderItem := .Order.Items}}
+{{$orderItem.MenuItem.Name}} - X{{$orderItem.Quantity}}
+
+{{$orderItem.MenuItem.Description}}
+{{end}}
+Subtotal ... ${{.Order.SubTotal}}
+
+{{range $feeName, $feeAmount := .Order.Fees}}
+{{$feeName}} fee ... ${{$feeAmount}}
+{{end}}
+
+Total: ${{.OrderTotal}}
+
+Feel Good Foods NV
+{{end}}
