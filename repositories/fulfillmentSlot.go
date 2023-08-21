@@ -5,19 +5,13 @@ import (
 	"errors"
 )
 
-// "Fulfillment" can be a delivery, but it doesn't have to be
-
-// In the future - maybe she does pickup? Maybe different types of
-// deliveries or pickups?
-
-// All of that is "fulfillment" ;)
 type FulfillmentSlot struct {
-	ID persisters.ID `json:"slot_id"`
-	// Type            string        `json:"type"`
-	DayOfWeek       int     `json:"day"`
-	SlotDescription string  `json:"slot_description"`
-	MaxFils         int     `json:"max_fills"`
-	Orders          []Order `json:"orders"`
+	ID              persisters.ID `json:"slot_id"`
+	Type            string        `json:"type"`
+	DayOfWeek       int           `json:"day"`
+	SlotDescription string        `json:"slot_description"`
+	MaxFils         int           `json:"max_fills"`
+	Orders          []Order       `json:"orders"`
 	*Fee            `json:"fee"`
 	ZipCodes        []int `json:"zip_codes"`
 	*Timestamps     `json:"timestamps,omitempty"`

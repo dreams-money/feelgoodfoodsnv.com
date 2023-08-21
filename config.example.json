@@ -7,6 +7,10 @@
         "feelgoodfoodsnv.com",
         "www.feelgoodfoodsnv.com"
     ],
+    "google_maps_api_key": {
+        "prd": "AIzaSyBI2yJXSAMPLEdYH426LSAMPLEvVhOwlkI",
+        "dev": "AIzaSyBI2yJXSAMPLEdYH426LSAMPLEvVhOwlkI"
+    }
     // Currently supports Square
     "payments_public_key": {
         "prd": "sq0idp-0FYxSa-cEjsSAMPLE88Vbg",

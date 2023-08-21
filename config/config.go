@@ -11,6 +11,7 @@ type Config struct {
 	HttpPort           int      `json:"http_port"`
 	TLSPort            int      `json:"tls_port"`
 	Hosts              []string `json:"hosts"`
+	GoogleMapsAPIKeys  EnvKeys  `json:"google_maps_api_key"`
 	PublicPaymentKeys  EnvKeys  `json:"payments_public_key"`
 	PrivatePaymentKeys EnvKeys  `json:"payments_private_key"`
 	MailerKeys         EnvKeys  `json:"mailer_key"`

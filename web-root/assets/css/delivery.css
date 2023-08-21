@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Licorice';
+    src: url('/assets/fonts/licorice.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    background-image: url('/assets/img/page-4-background.jpg');
+    background-size: 597px;
+    background-position-x: -95px;
+}
+
+@media only screen and (min-width: 600px) {
+    body {
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-color: var(--beige);
+    }
+}
+
+.container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 587px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+h1,
+.legend_item * {
+    color: white;
+}
+
+.week_section {
+    background-color: rgba(255, 255, 255, 0.45);
+    padding: 5px;
+    margin-top: 95px;
+    width: 100%;
+}
+
+.week {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+}
+
+.week_of {
+    position: relative;
+    top: -23px;
+}
+
+.month_name {
+    font-family: 'Licorice', cursive;
+    font-size: 3em;
+}
+
+.day_of_week {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.date {
+    width: 100px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 3em;
+}
+
+.slot {
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: #A88D8D;
+    border-radius: 4px;
+    width: 190px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--button-shadow);
+}
+
+.legend_color {
+    width: 22px;
+    height: 14px;
+    border: 2px solid black;
+}
+
+.yellow_bg {
+    background-color: #F9E856;
+}
+
+.grey_bg {
+    background-color: #9C9494;
+}
+
+.green_bg {
+    background-color: var(--lawn);
+}
+
+.legend {
+    display: flex;
+    justify-content: space-around;
+    max-width: 600px;
+}
+
+.legend_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legend_item:nth-child(2) {
+    position: relative;
+    top: 40px;
+}

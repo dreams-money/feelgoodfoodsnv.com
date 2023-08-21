@@ -1,0 +1,61 @@
+{{define "delivery"}}
+{{template "header" args "page" "Delivery" "title" "Schedule Delivery" "description" "Schedule a delivery time for your order"}}
+<div class="container">
+    <h1 class="p mt_32">
+        Reserve Date & Time
+    </h1>
+    <div class="errors">
+        <div class="error">
+            {{$.Errors}}
+        </div>
+    </div>
+    <section class="week_section">
+        <h2 class="p">
+            <span class="week_of">Week of: </span>
+            <span class="month_name">{{ .Description }}</span>
+        </h2>
+        <div class="week mt_32">
+            {{ range $weekDay, $date := .Slots }}
+            <div class="day">
+                <div class="date">
+                    {{$date.Description}}
+                </div>
+                <div class="day_of_week mt_8">
+                    {{$weekDay}}
+                </div>
+                <div class="slots">
+                    {{ range $slot := $date.Slots }}
+                    <div class="slot mt_8" slot-id="{{ $slot.ID }}">
+                        {{ $slot.SlotDescription }}
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </section>
+    {{ if .NoSlotsAvaliable }}
+    <div id="no_slots_notice">
+        We're so sorry! - there's no more delivery slots.<br>
+        Please call (775) 508-3859
+    </div>
+    {{ end }}
+    <!-- Legends too cool not to save -->
+    <!-- <div class="legend mt_32">
+        <div class="legend_item">
+            <div class="legend_color yellow_bg"></div>
+            <div class="legend_title">Mornings</div>
+        </div>
+        <div class="legend_item">
+            <div class="legend_color grey_bg"></div>
+            <div class="legend_title">No Delivery</div>
+        </div>
+        <div class="legend_item">
+            <div class="legend_color green_bg"></div>
+            <div class="legend_title">Evenings</div>
+        </div>
+    </div> -->
+</div>
+<script src="/assets/scripts/slotify.js"></script>
+{{template "footer"}}
+{{end}}

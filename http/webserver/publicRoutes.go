@@ -3,7 +3,7 @@ package webserver
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -28,14 +28,32 @@ func OrderPage(w http.ResponseWriter, r *http.Request) {
 	executeTemplate("order", w, toView)
 }
 
-func SchedulePage(w http.ResponseWriter, r *http.Request) {
+func DeliveryPage(w http.ResponseWriter, r *http.Request) {
 	toView := make(map[string]interface{})
 
-	currentWeek, err := app.GetCurrentWeek()
+	week, err := app.GetCurrentWeek()
 	errorCheckHandleGraceful(err, toView)
-	toView["CurrentWeek"] = currentWeek
+	toView["Description"] = week.Description
+	toView["Slots"] = week.GetDeliverySlots()
 
-	executeTemplate("schedule", w, toView)
+	executeTemplate("delivery", w, toView)
+}
+
+func PickupPage(w http.ResponseWriter, r *http.Request) {
+	toView := make(map[string]interface{})
+
+	week, err := app.GetCurrentWeek()
+	errorCheckHandleGraceful(err, toView)
+
+	toView["PickupSlots"] = week.GetPickupSlots()
+
+	if serverConfiguration.Environment == "dev" {
+		toView["APIKey"] = serverConfiguration.GoogleMapsAPIKeys.Development
+	} else {
+		toView["APIKey"] = serverConfiguration.GoogleMapsAPIKeys.Production
+	}
+
+	executeTemplate("pickup", w, toView)
 }
 
 func ReviewPage(w http.ResponseWriter, r *http.Request) {
@@ -56,6 +74,10 @@ func PayPage(w http.ResponseWriter, r *http.Request) {
 	executeTemplate("pay", w, toView)
 }
 
+func SchedulePage(w http.ResponseWriter, r *http.Request) {
+	executeTemplate("schedule", w, nil)
+}
+
 func Submit(w http.ResponseWriter, r *http.Request) {
 	// This should be part of API..
 	if r.Method != http.MethodPost {
@@ -64,7 +86,7 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("%s: Received payment", r.RemoteAddr)
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
 	}
@@ -190,9 +212,11 @@ func RegisterWebRoutes(cfg config.Config) http.Handler {
 	web := http.NewServeMux()
 
 	web.HandleFunc("/order", OrderPage)
-	web.HandleFunc("/schedule", SchedulePage)
+	web.HandleFunc("/delivery", DeliveryPage)
 	web.HandleFunc("/review", ReviewPage)
 	web.HandleFunc("/pay", PayPage)
+	web.HandleFunc("/pickup", PickupPage)
+	web.HandleFunc("/schedule", SchedulePage)
 	web.HandleFunc("/submit", Submit)
 	web.HandleFunc("/receipt", ReceiptPage)
 	web.HandleFunc("/allowed-zips", AllowedZips)

@@ -94,7 +94,7 @@ func CreateNewWeek() Week {
 }
 
 func GetCurrentWeekName() string {
-	// DRY
+	// DRY 1
 	now := time.Now()
 	sundayDateDay := now.Day() - int(now.Weekday())
 	sundayDate := time.Date(now.Year(), now.Month(),
@@ -110,7 +110,7 @@ func GetCurrentWeekName() string {
 }
 
 func GetNextWeekName() string {
-	// DRY
+	// DRY 1
 	now := time.Now()
 	sundayDateDay := now.Day() - int(now.Weekday())
 	sundayDate := time.Date(now.Year(), now.Month(),
@@ -124,6 +124,54 @@ func GetNextWeekName() string {
 		return sundayDate.Format("January 2") +
 			"-" + tillDate.Format("January 2")
 	}
+}
+
+func (w *Week) GetPickupSlots() map[string]WeekDay {
+	// DRY 2
+	weekDays := make(map[string]WeekDay)
+	pickupSlots := make(map[persisters.ID]FulfillmentSlot)
+
+	for dayKey, day := range w.WeekDays {
+		for slotID, slot := range day.Slots {
+			if slot.Type == "pickup" {
+				pickupSlots[slotID] = slot
+			}
+		}
+
+		if len(pickupSlots) > 0 {
+			weekDays[dayKey] = WeekDay{
+				Description: day.Description,
+				Slots:       pickupSlots,
+			}
+			pickupSlots = make(map[persisters.ID]FulfillmentSlot)
+		}
+	}
+
+	return weekDays
+}
+
+func (w *Week) GetDeliverySlots() map[string]WeekDay {
+	// DRY 2
+	weekDays := make(map[string]WeekDay)
+	deliverySlots := make(map[persisters.ID]FulfillmentSlot)
+
+	for dayKey, day := range w.WeekDays {
+		for slotID, slot := range day.Slots {
+			if slot.Type == "delivery" {
+				deliverySlots[slotID] = slot
+			}
+		}
+
+		if len(deliverySlots) > 0 {
+			weekDays[dayKey] = WeekDay{
+				Description: day.Description,
+				Slots:       deliverySlots,
+			}
+			deliverySlots = make(map[persisters.ID]FulfillmentSlot)
+		}
+	}
+
+	return weekDays
 }
 
 type WeekRepository struct {

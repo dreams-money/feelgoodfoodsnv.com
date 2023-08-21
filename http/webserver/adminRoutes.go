@@ -7,7 +7,7 @@ import (
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/templates"
 	"encoding/base64"
 	"errors"
-	"io/ioutil"
+	"io"
 	"log"
 	"math/rand"
 	"net/http"
@@ -133,7 +133,7 @@ func adminMenuItem(resp http.ResponseWriter, req *http.Request) {
 		if image != nil && err == nil {
 			defer image.Close()
 
-			imageBytes, err := ioutil.ReadAll(image)
+			imageBytes, err := io.ReadAll(image)
 			if err != nil {
 				log.Println(err.Error())
 				http.Error(resp, "", 500)
@@ -366,6 +366,7 @@ func adminSlot(resp http.ResponseWriter, req *http.Request) {
 		slot = repositories.FulfillmentSlot{
 			DayOfWeek:       atoi(req.Form["day"][0]),
 			SlotDescription: req.Form["slot_description"][0],
+			Type:            req.Form["type"][0],
 			MaxFils:         atoi(req.Form["max_fills"][0]),
 			Fee:             fee,
 			ZipCodes:        zipCodes,
@@ -389,9 +390,19 @@ func adminSlot(resp http.ResponseWriter, req *http.Request) {
 	}
 
 	toView := make(map[string]interface{})
-	toView["slot"] = slot
-	toView["dayofweek"] = slot.DayOfWeek
-	toView["listing"] = repo.List()
+	toView["Slot"] = slot
+	toView["DayOfWeek"] = slot.DayOfWeek
+	toView["SlotType"] = slot.Type
+	toView["Listing"] = repo.List()
+
+	zipInputString := ""
+	for _, zipCode := range slot.ZipCodes {
+		zipInputString = zipInputString + strconv.Itoa(zipCode) + ","
+	}
+	if len(zipInputString) > 0 {
+		zipInputString = zipInputString[:len(zipInputString)-1]
+	}
+	toView["ZipCodeInputString"] = zipInputString
 
 	t := templates.ParseFiles("./pages/admin/slot.html", "./pages/footer.html", "./pages/admin/header.html")
 	err = t.ExecuteTemplate(resp, "admin/slot", toView)

@@ -3,6 +3,7 @@
  --beige: #E5D0B8;
  --creme: rgba(255, 251, 251, .6);
  --shae: #A88D8D;
+ --button-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 @font-face {

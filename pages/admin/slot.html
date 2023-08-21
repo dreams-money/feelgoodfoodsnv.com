@@ -1,123 +1,163 @@
 {{define "admin/slot"}}
-{{template "header" args "page" "admin/slots" "title" "Put in work" "description" ""}}
+{{template "header" args "page" "admin/slot" "title" "Put in work" "description" ""}}
 <div class="container flex_column flex_x_center w_full h_full">
- <h1>Fulfillment Slot</h1>
- <div class="flex_column">
-  {{ range $key, $value := .listing }}
-  <a href="?edit={{ $key }}">{{ $value }}</a>
-  {{ end }}
- </div>
- <h2>{{ if .slot.SlotDescription }}Edit{{ else }}Create{{ end }}</h2>
- {{ if .slot.SlotDescription }}
- <p>
-  <a href="?">
-   Back
-  </a>
- </p>
- {{ else }}
- <p>
-  <a href="/admin/home/">
-   Back
-  </a>
- </p>
- {{ end }}
- <form method="post" class="flex_column w_300">
-  <!-- <div class="form-input">
-   <label for="slot_name">Slot Day of Week</label>
-   <select
-    type="text"
-    placeholder="Name"
-    id="day"
-    name="day"
-   >
-    <option value="1" {{ if eq .dayofweek 1 }}selected{{ end }}>
-     Monday
-    </option>
-    <option value="2" {{ if eq .dayofweek 2 }}selected{{ end }}>
-     Tuesday
-    </option>
-    <option value="3" {{ if eq .dayofweek 3 }}selected{{ end }}>
-     Wednesday
-    </option>
-    <option value="4" {{ if eq .dayofweek 4 }}selected{{ end }}>
-     Thursday
-    </option>
-    <option value="5" {{ if eq .dayofweek 5 }}selected{{ end }}>
-     Friday
-    </option>
-    <option value="6" {{ if eq .dayofweek 6 }}selected{{ end }}>
-     Saturday
-    </option>
-    <option value="7" {{ if eq .dayofweek 7 }}selected{{ end }}>
-     Sunday
-    </option>
-   </select>
-  </div> -->
-  <!-- We switched to only delivery one day a week.. but leaving ^that in case we switch back -->
-  <input
-   type="hidden"
-   name="day"
-   value="1"
-  >
-  <div class="form-input">
-   <label for="slot_description">Slot Description</label>
-   <input
-    type="text"
-    placeholder="Name"
-    id="slot_description"
-    name="slot_description"
-    value="{{ if .slot.SlotDescription }}{{ .slot.SlotDescription }}{{ end }}"
-   >
-  </div>
-  <div class="form-input">
-   <label for="max_fills">Ideal Headcount</label>
-   <input
-    type="number"
-    placeholder="Headcount"
-    id="max_fills"
-    name="max_fills"
-    value="{{ if .slot.MaxFils }}{{ .slot.MaxFils }}{{ end }}"
-   >
-  </div>
-  <div class="form-input mt_8">
-    <label for="fee_name">Fee Name</label>
-    <input
-     type="text"
-     placeholder="Fee Name"
-     id="fee_name"
-     name="fee_name"
-     value="{{ if .slot.Fee }}{{ .slot.Fee.Name }}{{ end }}"
-    >
-   </div>
-  <div class="form-input">
-    <label for="fee_amount">Fee Amount</label>
-    <input
-     type="number"
-     step="0.01"
-     placeholder="Fee Amount"
-     id="fee_amount"
-     name="fee_amount"
-     value="{{ if .slot.Fee }}{{ .slot.Fee.Amount }}{{ end }}"
-    >
-   </div>
-   <div class="form-input mt_16">
-    <label for="zip_codes"><h4>Limit to these zip codes</h4></label>
-    <p class="mt_8">Seperate them with commas</p>
-    <p>I.e. 89701,96151,89702 </p>
-    <input
-     type="text"
-     placeholder="ZIP Code"
-     id="zip_codes"
-     name="zip_codes"
-     value=""
-    >
-    {{ if gt (len .slot.ZipCodes) 0 }}<h5>Current zip code limitations</h5>{{ end }}
-    {{ range $code := .slot.ZipCodes }}
-     <span class="zip_code_entry">{{ $code }}</span>
+  <h1>Fulfillment Slot</h1>
+  <div class="flex_column">
+    {{ range $key, $value := .Listing }}
+    <a href="?edit={{ $key }}">{{ $value }}</a>
     {{ end }}
-   </div>
-  <input type="submit" value="Submit" class="mt_16">
- </form>
+  </div>
+  <h2>{{ if .Slot.SlotDescription }}Edit{{ else }}Create{{ end }}</h2>
+  {{ if .Slot.SlotDescription }}
+  <p>
+    <a href="?">
+      Back
+    </a>
+  </p>
+  {{ else }}
+  <p>
+    <a href="/admin/home/">
+      Back
+    </a>
+  </p>
+  {{ end }}
+  <form method="post" class="flex_column w_300">
+    <div class="form-input">
+      <label for="slot_name">Slot Day of Week</label>
+      {{if eq .DayOfWeek 1}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1" selected>Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 2}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2" selected>Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 3}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3" selected>Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 4}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4" selected>Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 5}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5" selected>Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 6}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6" selected>Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{else if eq .DayOfWeek 7}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7" selected>Sunday</option>
+      </select>
+      {{else}}
+      <select type="text" placeholder="Name" id="day" name="day">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+      </select>
+      {{end}}
+    </div>
+    <div class="form-input">
+      <label for="slot_description">Slot Description</label>
+      <input type="text" placeholder="Name" id="slot_description" name="slot_description"
+        value="{{ if .Slot.SlotDescription }}{{ .Slot.SlotDescription }}{{ end }}">
+    </div>
+    <div class="form-input">
+      <label for="max_fills">Ideal Headcount</label>
+      <input type="number" placeholder="Headcount" id="max_fills" name="max_fills"
+        value="{{ if .Slot.MaxFils }}{{ .Slot.MaxFils }}{{ end }}">
+    </div>
+    <div class="form-input mt_8">
+      <label for="type">Slot Type</label>
+      {{if eq .SlotType "pickup"}}
+      <select id="type" name="type">
+        <option value="pickup" selected>Pickup</option>
+        <option value="delivery">Delivery</option>
+      </select>
+      {{else if eq .SlotType "delivery"}}
+      <select id="type" name="type">
+        <option value="pickup">Pickup</option>
+        <option value="delivery" selected>Delivery</option>
+      </select>
+      {{else}}
+      <select id="type" name="type">
+        <option value="pickup">Pickup</option>
+        <option value="delivery">Delivery</option>
+      </select>
+      {{end}}
+    </div>
+    <div class="form-input mt_8">
+      <label for="fee_name">Fee Name</label>
+      <input type="text" placeholder="Fee Name" id="fee_name" name="fee_name"
+        value="{{ if .Slot.Fee }}{{ .Slot.Fee.Name }}{{ end }}">
+    </div>
+    <div class="form-input">
+      <label for="fee_amount">Fee Amount</label>
+      <input type="number" step="0.01" placeholder="Fee Amount" id="fee_amount" name="fee_amount"
+        value="{{ if .Slot.Fee }}{{ .Slot.Fee.Amount }}{{ end }}">
+    </div>
+    <div class="form-input mt_16">
+      <label for="zip_codes">
+        <h4>Limit to these zip codes</h4>
+      </label>
+      {{ if lt (len .Slot.ZipCodes) 1 }}
+      <p class="mt_8">Seperate them with commas</p>
+      <p>I.e. 89701,96151,89702 </p>
+      {{ end }}
+      <input type="text" placeholder="ZIP Code" id="zip_codes" name="zip_codes"
+        value="{{.ZipCodeInputString}}">
+    </div>
+    <input type="submit" value="Submit" class="mt_16">
+  </form>
 </div>
 {{template "footer"}}
 {{end}}

@@ -20,8 +20,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 50vh;
 }
 
 .brown_box {
@@ -29,20 +27,49 @@ body {
     background-color: var(--shae);
     text-align: center;
     padding: 16px;
-    width: 80%;
-    cursor: pointer;
     width: 375px;
+}
+#loading-spinner {
+    background-color: white;
+    width: 350px;
+    height: 350px;
+}
+#map {
+    display: none;
+    z-index: 1;
+}
+.slots {
+    display: flex;
+    justify-content: space-evenly;
+}
+.slot {
+    border: solid 1px black;
+    padding: 2px 16px;
     box-shadow: var(--button-shadow);
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 900px) {
+    #map {
+        width: 325px;
+    }
     .brown_box {
         width: 350px;
     }
+    .slot-time {
+        padding: 16px 32px;
+    }
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 300px) {
+    #map {
+        width: 250px;
+        height: 250px;
+    }
     .brown_box {
         width: 200px;
+    }
+    .slot-time {
+        padding: 16px;
     }
 }

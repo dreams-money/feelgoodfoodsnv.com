@@ -44,6 +44,12 @@
    src="/assets/scripts/pay.js"
    ></script>
  {{ end }}
+ {{ if eq $.page "Pickup" }}
+ <link rel="stylesheet" href="/assets/css/pickup.css">
+ {{ end }}
+ {{ if eq $.page "Schedule" }}
+ <link rel="stylesheet" href="/assets/css/schedule.css">
+ {{ end }}
  {{ if eq $.page "review" }}
  <link rel="stylesheet" href="/assets/css/review.css">
  <script src="/assets/scripts/review.js"></script>
@@ -51,8 +57,8 @@
  {{ if eq $.page "receipt" }}
  <link rel="stylesheet" href="/assets/css/receipt.css">
  {{ end }}
- {{ if eq $.page "Schedule" }}
- <link rel="stylesheet" href="/assets/css/schedule.css">
+ {{ if eq $.page "Delivery" }}
+ <link rel="stylesheet" href="/assets/css/delivery.css">
  {{ end }}
  {{ if eq $.page "testimonials" }}
  <link rel="stylesheet" href="/assets/css/testimonials.css">
