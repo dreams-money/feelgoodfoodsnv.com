@@ -1,7 +1,6 @@
 package webserver
 
 import (
-	"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
@@ -45,11 +44,9 @@ func runProdServer(cfg config.Config, sync chan struct{}) {
 
 	httpsPort := fmt.Sprintf(":" + strconv.Itoa(cfg.TLSPort))
 	webServer := &http.Server{
-		Addr: httpsPort,
-		TLSConfig: &tls.Config{
-			GetCertificate: certManager.GetCertificate,
-		},
-		Handler: RegisterWebRoutes(cfg),
+		Addr:      httpsPort,
+		TLSConfig: certManager.TLSConfig(),
+		Handler:   RegisterWebRoutes(cfg),
 	}
 
 	go func() {
