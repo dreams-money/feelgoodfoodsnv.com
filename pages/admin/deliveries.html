@@ -58,6 +58,7 @@
                       </span>
                   {{ end }}
               </div>
+              {{if $order.Customer.Addresses}}
               <div class="ml_42 mt_16">
                   {{(index $order.Customer.Addresses 0).Line1}}<br>
                   {{(index $order.Customer.Addresses 0).Line2}}<br>
@@ -65,6 +66,11 @@
                   {{(index $order.Customer.Addresses 0).State}}
                   {{(index $order.Customer.Addresses 0).Postal}}
               </div>
+              {{else}}
+              <div class="ml_42 mt_16">
+                No address
+              </div>
+              {{end}}
           </div>
           {{ end }}
       </div>

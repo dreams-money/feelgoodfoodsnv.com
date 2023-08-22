@@ -93,7 +93,7 @@ func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {
 	if len(orderSlot.ZipCodes) > 0 && len(order.Customer.Addresses) > 0 {
 		zipCodeTestResult, err := zipCodeTest(orderSlot.ZipCodes, order.Customer.Addresses[0].Postal)
 		if err != nil {
-			return err
+			return errors.New("zip test failed: " + err.Error())
 		}
 		if !zipCodeTestResult {
 			return errors.New("Order not in appropriate zip code")

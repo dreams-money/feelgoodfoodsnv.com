@@ -1,7 +1,7 @@
 {{define "receipt"}}
 Food Order Receipt
 
-Order Number: {{.Order.ID}}
+Order Number: {{.OrderID}}
 {{range $orderItem := .Order.Items}}
 {{$orderItem.MenuItem.Name}} - X{{$orderItem.Quantity}}
 

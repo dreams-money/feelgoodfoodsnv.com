@@ -31,37 +31,41 @@
    class="mb_8"
    required
   >
-  <input
-   type="text"
-   name="postal"
-   id="postal"
-   placeholder="Delivery Postal Code"
-   class="mb_8"
-   required
-   pattern="^\d{5}(?:[-\s]\d{4})?$"
-   title="00000"
-  >
-  <input
-   type="text"
-   name="street1"
-   id="street1"
-   required
-   placeholder="Delivery Address 1"
-   class="mb_8"
-  >
-  <input
-   type="text"
-   name="street2"
-   id="street2"
-   placeholder="Delivery Address 2"
-   class="mb_8"
-  >
+  {{if eq .SlotType "delivery"}}
+  <div class="mt_8">
+      <input
+       type="text"
+       name="postal"
+       id="postal"
+       placeholder="Delivery Postal Code"
+       class="mb_8"
+       required
+       pattern="^\d{5}(?:[-\s]\d{4})?$"
+       title="00000"
+      >
+      <input
+       type="text"
+       name="street1"
+       id="street1"
+       required
+       placeholder="Delivery Address 1"
+       class="mb_8"
+      >
+      <input
+       type="text"
+       name="street2"
+       id="street2"
+       placeholder="Delivery Address 2"
+       class="mb_8"
+      >
+  </div>
+  {{end}}
   <input
    type="textarea"
    name="allergies"
    id="allergies"
    placeholder="Allergies"
-   class="mb_16"
+   class="mt_8 mb_16"
   >
   <input
    type="email"

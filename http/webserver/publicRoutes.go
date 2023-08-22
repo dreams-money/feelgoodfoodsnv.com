@@ -71,6 +71,12 @@ func PayPage(w http.ResponseWriter, r *http.Request) {
 
 	fetchOrderFromURL(urlParams, toView)
 
+	order := toView["Order"].(repositories.Order)
+	var slot repositories.FulfillmentSlot
+	err := repositories.FulfillmentSlotRepo.Get(order.FulfillmentSlotID, &slot)
+	errorCheckHandleGraceful(err, toView)
+	toView["SlotType"] = slot.Type
+
 	executeTemplate("pay", w, toView)
 }
 
@@ -101,13 +107,15 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 
 	err = app.OrderManager.ReviewOrder(*order)
 	if err != nil {
-		log.Println(err)
-		return // Need better exit
+		log.Println("Order failed review: " + err.Error())
+		return
 	}
 
-	err = order.Customer.Addresses[0].FillCityStateFromZip()
-	if err != nil {
-		log.Println(err)
+	if len(order.Customer.Addresses) > 0 {
+		err = order.Customer.Addresses[0].FillCityStateFromZip()
+		if err != nil {
+			log.Println("Failed to fill city state: " + err.Error())
+		}
 	}
 
 	err = app.FillOrderFees(order)
@@ -132,7 +140,7 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 			persisterID, err := app.OrderManager.AddOrder(order.FulfillmentSlotID, *order)
 			if err == nil {
 				log.Printf("%s: Order saved", r.RemoteAddr)
-				err = app.SendOrderReceiptEmail(*order)
+				err = app.SendOrderReceiptEmail(*order, persisterID)
 
 				// Post order to accounting at some point.
 

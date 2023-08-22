@@ -112,18 +112,20 @@ function getCustomer() {
     }
   }
 
-  customer["addresses"] = [
-    {
-      type: "delivery",
-      street1: customer.street1,
-      street2: customer.street2,
-      postal: customer.postal,
-    }
-  ];
+  if (customer.hasOwnProperty('postal')) {
+    customer["addresses"] = [
+      {
+        type: "delivery",
+        street1: customer.street1,
+        street2: customer.street2,
+        postal: customer.postal,
+      }
+    ];
 
-  delete customer.street1;
-  delete customer.street2;
-  delete customer.postal;
+    delete customer.street1;
+    delete customer.street2;
+    delete customer.postal;
+  }
 
   return customer;
 }
