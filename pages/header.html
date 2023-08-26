@@ -10,7 +10,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
- <link rel="canonical" href="https://feelgoodfoodsnv.com" />
+ <link rel="preload" href="/assets/fonts/alice.woff2" as="font" type="font/woff2" crossorigin>
 
  <link rel="stylesheet" href="/assets/css/global.css">
 
@@ -45,12 +45,15 @@
    ></script>
  {{ end }}
  {{ if eq $.page "Pickup" }}
+ <link rel="preload" as="image" href="/assets/img/page-4-background.jpg">
  <link rel="stylesheet" href="/assets/css/pickup.css">
  {{ end }}
  {{ if eq $.page "Schedule" }}
+ <link rel="preload" as="image" href="/assets/img/page-4-background.jpg">
  <link rel="stylesheet" href="/assets/css/schedule.css">
  {{ end }}
  {{ if eq $.page "review" }}
+ <link rel="preload" as="image" href="/assets/img/page-7-shrimp-bg.jpg">
  <link rel="stylesheet" href="/assets/css/review.css">
  <script src="/assets/scripts/review.js"></script>
  {{ end }}
@@ -58,12 +61,18 @@
  <link rel="stylesheet" href="/assets/css/receipt.css">
  {{ end }}
  {{ if eq $.page "Delivery" }}
+ <link rel="preload" as="image" href="/assets/img/page-4-background.jpg">
+ <link rel="preload" href="/assets/fonts/licorice.woff2" as="font" type="font/woff2" crossorigin>
  <link rel="stylesheet" href="/assets/css/delivery.css">
  {{ end }}
  {{ if eq $.page "testimonials" }}
+ <link rel="preload" as="image" href="/assets/img/logo-high-resolution.png">
+ <link rel="preload" as="image" href="/assets/img/page-9-shrimp.jpg">
+ <link rel="preload" as="image" href="/assets/img/page-9-spread.jpg">
  <link rel="stylesheet" href="/assets/css/testimonials.css">
  {{ end }}
 
+ <link rel="canonical" href="https://feelgoodfoodsnv.com" />
  <title>{{$.title}}</title>
 </head>
 <body>

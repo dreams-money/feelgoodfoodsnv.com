@@ -20,7 +20,12 @@
     />
 </div>
 <div class="brown_box mt_16 mb_16">
-    <p id="address">Pickup Address: 3922 US-50, Carson City, NV 89701</p>
+    <p id="address">
+        Address:
+        <a href="https://www.google.com/maps/dir//3922%20US-50,%20Carson%20City,%20NV%2089701" target="_blank">
+            3922 US-50, Carson City, NV 89701
+        </a>
+    </p>
     <p class="mt_16">Availability</p>
     <div class="slots mt_16">
         {{range $dayDescription, $day := .PickupSlots}}

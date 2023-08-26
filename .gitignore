@@ -5,5 +5,7 @@ log
 main
 main.exe
 config.json
+prod.json
 web-root/assets/scripts/pay.js
 .vscode/
+certs/
