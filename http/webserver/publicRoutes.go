@@ -105,6 +105,11 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 
 	order := &orderSubmission.Order
 
+	if order.Customer.Email == "" {
+		log.Println("Order must have email")
+		return
+	}
+
 	err = app.OrderManager.ReviewOrder(*order)
 	if err != nil {
 		log.Println("Order failed review: " + err.Error())
@@ -158,6 +163,7 @@ func Submit(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		log.Printf("%s: Payment failed", r.RemoteAddr)
+		log.Printf("Response: %v", paymentResponse.Payment)
 	}
 
 	type orderResponse struct {

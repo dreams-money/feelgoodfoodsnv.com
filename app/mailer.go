@@ -14,6 +14,10 @@ import (
 )
 
 func SendOrderReceiptEmail(order repositories.Order, orderID persisters.ID) error {
+	if order.Customer.Email == "" {
+		return errors.New("Order is missing to email")
+	}
+
 	htmlTemplate := templates.ParseFiles("./emails/receipt.html", "./pages/footer.html", "./pages/header.html")
 	textTemplate := templates.ParseFiles("./emails/receipt.txt")
 

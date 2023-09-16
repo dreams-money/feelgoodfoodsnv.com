@@ -62,6 +62,11 @@ func (m *SlotOrderManager) AddOrder(s persist.ID, o repos.Order) (persist.ID, er
 
 func (m *SlotOrderManager) ClearOrders() {
 	m.slotFills = make(map[persist.ID]int)
+	week, err := GetCurrentWeek()
+	if err != nil {
+		panic(err)
+	}
+	cacheThisWeeksOrders(week)
 }
 
 func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {

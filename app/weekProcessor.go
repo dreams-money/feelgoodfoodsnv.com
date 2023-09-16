@@ -4,6 +4,7 @@ import (
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/persisters"
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/repositories"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -91,6 +92,10 @@ func StoreCurrentWeeksOrders() {
 
 	_, err = repositories.WeekRepo.Set(CurrentWeekID, week)
 	panicOnError(err)
+}
+
+func cacheThisWeeksOrders(week repositories.Week) {
+	os.Rename("/data/orders", "/data/orders-"+week.Description)
 }
 
 func createUpcomingCutoffTime(configOption string) (time.Time, error) {
