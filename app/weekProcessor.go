@@ -94,8 +94,8 @@ func StoreCurrentWeeksOrders() {
 	panicOnError(err)
 }
 
-func cacheThisWeeksOrders(week repositories.Week) {
-	os.Rename("/data/orders", "/data/orders-"+week.Description)
+func cacheThisWeeksOrders(week repositories.Week) error {
+	return os.Rename("/data/orders", "/data/orders-"+week.Description)
 }
 
 func createUpcomingCutoffTime(configOption string) (time.Time, error) {

@@ -66,7 +66,10 @@ func (m *SlotOrderManager) ClearOrders() {
 	if err != nil {
 		panic(err)
 	}
-	cacheThisWeeksOrders(week)
+	err = cacheThisWeeksOrders(week)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {
