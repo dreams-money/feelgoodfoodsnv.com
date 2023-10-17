@@ -3,14 +3,18 @@ package app
 import (
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/persisters"
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/repositories"
+	"errors"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+
+	cp "github.com/otiai10/copy"
 )
 
-const cutOffTime = "Sat 12:01AM"
+const cutOffTime = "Wed 12:01AM"
 
 var CurrentWeekID persisters.ID
 
@@ -24,7 +28,6 @@ func RunCutoffSchedule(syncer chan struct{}) {
 
 	go func() {
 		for {
-			nextCutOffTime = nextCutOffTime.AddDate(0, 0, 7)
 			log.Println("Next cutoff time: " + nextCutOffTime.Format("Mon Jan _2 03:04PM MST 2006"))
 
 			time.Sleep(time.Until(nextCutOffTime))
@@ -34,6 +37,8 @@ func RunCutoffSchedule(syncer chan struct{}) {
 			log.Println("Generating new week")
 			CreateNewWeek()
 			OrderManager.ClearOrders()
+
+			nextCutOffTime = nextCutOffTime.AddDate(0, 0, 7)
 
 			syncer <- struct{}{}
 		}
@@ -95,7 +100,30 @@ func StoreCurrentWeeksOrders() {
 }
 
 func cacheThisWeeksOrders(week repositories.Week) error {
-	return os.Rename("/data/orders", "/data/orders-"+week.Description)
+	weekDescription := strings.Replace(week.Description, " ", "-", -1)
+
+	currentDir := "./data/orders"
+	cachedDir := "./data/orders-" + weekDescription
+	err := cp.Copy(currentDir, cachedDir)
+	if err != nil {
+		return err
+	}
+
+	currentDirSize, err := dirSize(currentDir)
+	if err != nil {
+		return err
+	}
+	cachedDirSize, err := dirSize(cachedDir)
+	if err != nil {
+		return err
+	}
+
+	if currentDirSize != cachedDirSize {
+		return errors.New("Failed to cache week - dir sizes don't match! " +
+			strconv.Itoa(int(currentDirSize)) + " " + strconv.Itoa(int(cachedDirSize)))
+	}
+
+	return removeDirContents(currentDir)
 }
 
 func createUpcomingCutoffTime(configOption string) (time.Time, error) {
@@ -112,8 +140,8 @@ func createUpcomingCutoffTime(configOption string) (time.Time, error) {
 	now := time.Now().In(location)
 
 	daysToCutOffDay := dayToCutOff - int(now.Weekday())
-	if int(now.Weekday()) < dayToCutOff {
-		daysToCutOffDay -= 7
+	if int(now.Weekday()) >= dayToCutOff {
+		daysToCutOffDay += 7
 	}
 	nextCutOffTime := now.AddDate(0, 0, daysToCutOffDay)
 
@@ -140,6 +168,9 @@ func parseCutOffTimeConfig(time string) (int, int, int, error) {
 		return 0, 0, 0, err
 	}
 	amOrPm := parts[1][2:4]
+	// if amOrPm == "PM" || amOrPm == "pm" {
+	// 	hourToCutOff += 12
+	// } else
 	if amOrPm == "AM" || amOrPm == "am" {
 		hourToCutOff -= 12
 	}
@@ -172,4 +203,37 @@ func logOnError(err error) {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func dirSize(path string) (int64, error) {
+	var size int64
+	err := filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			size += info.Size()
+		}
+		return err
+	})
+	return size, err
+}
+
+func removeDirContents(dir string) error {
+	d, err := os.Open(dir)
+	if err != nil {
+		return err
+	}
+	defer d.Close()
+	names, err := d.Readdirnames(-1)
+	if err != nil {
+		return err
+	}
+	for _, name := range names {
+		err = os.RemoveAll(filepath.Join(dir, name))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
