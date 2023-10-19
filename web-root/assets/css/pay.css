@@ -166,3 +166,17 @@ input[type="submit"] {
 #payment-status-container {
   background-color: white;
 }
+
+.brown_btn {
+  display: block;
+  width: 100px;
+  height: 40px;
+  background-color: #A88D8D;
+  border-radius: 100%;
+  color: white;
+  text-decoration: none;
+  line-height: 2.5;
+  text-align: center;
+  box-shadow: var(--button-shadow);
+  border: 0px;
+}
