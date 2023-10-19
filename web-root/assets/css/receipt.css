@@ -11,7 +11,7 @@ body {
 
 @media only screen and (min-width: 600px) {
    body {
-      background-repeat: no-repeat;
+      background-repeat: repeat-y;
       background-position-x: center;
       background-color: var(--beige);
    }
@@ -22,7 +22,7 @@ body {
    background: #6D8947;
    opacity: 0.8;
    border-radius: 100px;
-   height: 782px;
+   padding-bottom: 32px;
 
    display: flex;
    flex-direction: column;
