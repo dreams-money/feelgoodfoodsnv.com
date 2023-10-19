@@ -30,7 +30,7 @@
     <div class="slots mt_16">
         {{range $dayDescription, $day := .PickupSlots}}
         <div class="slot-object">
-            <p>{{$dayDescription}}</p>
+            <p>{{$dayDescription}} 23rd</p>
             {{range $slotID, $slot := $day.Slots}}
             <p class="slot mt_16" slot-id="{{ $slot.ID }}">{{$slot.SlotDescription}}</p>
             {{end}}
