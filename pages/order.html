@@ -20,12 +20,10 @@
   <div class="menu_item_detail">
     <h3 class="p">
       {{$menuItem.Name}}
+      <span class="price">$<span class="item_price">{{$menuItem.Price}}</span></span>
     </h3>
     <p class="description p">
       {{$menuItem.Description}}
-    </p>
-    <p class="price p">
-      $<span class="item_price">{{$menuItem.Price}}</span>
     </p>
     <div class="quantity_control mt_8">
       <div class="subtract quantity_btn">-</div>

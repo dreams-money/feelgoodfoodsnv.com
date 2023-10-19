@@ -103,6 +103,7 @@ hr {
 
 .price {
   color: white;
+  font-size: 1.35em;
 }
 
 .quantity_control {
@@ -110,14 +111,17 @@ hr {
   justify-content: center;
   align-items: center;
   opacity: 0;
+  margin-top: 32px;
 }
 
 .quantity {
   margin: 0 8px;
+  font-size: 1.45em;
+  padding: 0 8px;
 }
 
 .quantity_btn {
-  --size: 25px;
+  --size: 50px;
   width: var(--size);
   height: var(--size);
   border-radius: 100%;
