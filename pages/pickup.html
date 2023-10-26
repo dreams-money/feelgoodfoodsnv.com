@@ -1,6 +1,6 @@
 {{define "pickup"}}
 {{template "header" args "page" "Pickup" "title" "Pickup Location" "description" "Choose a pickup location"}}
-<div class="cross_banner">You are ordering for service on Monday the 23rd</div>
+<div class="cross_banner">You are ordering for service on Monday the 30th</div>
 <div class="container center_x">
 <h1 class="p mt_32">Pick up</h1>
 <div class="brown_box mt_32">US 50 Maverik - across from Slot World!</div>
@@ -31,7 +31,7 @@
     <div class="slots mt_16">
         {{range $dayDescription, $day := .PickupSlots}}
         <div class="slot-object">
-            <p>{{$dayDescription}} 23rd</p>
+            <p>{{$dayDescription}} 30th</p>
             {{range $slotID, $slot := $day.Slots}}
             <p class="slot mt_16" slot-id="{{ $slot.ID }}">{{$slot.SlotDescription}}</p>
             {{end}}
