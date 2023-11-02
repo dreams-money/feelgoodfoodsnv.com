@@ -1,12 +1,22 @@
 {{define "order"}}
 {{template "header" args "page" "Order" "title" "Order Food" "description" "Order meal delivery from Feel Good Foods"}}
 <div class="header">
-  <h1 class="p">
-    You are ordering for
-  </h1>
-  <h2 class="p">
-    service on October 30th
-  </h2>
+{{ if .IsLocked }}
+<h1 class="p">
+  Orders Closed
+</h1>
+<h2 class="p">
+  Check back Wednesday!
+</h2>
+{{ else }}
+<h1 class="p">
+  You are ordering
+</h1>
+<h2 class="p">
+  for {{.WeekOf}}
+</h2>
+{{ end }}
+
 </div>
 <hr>
 <div style="text-align: center;">All meals are less than 500 calories</div>
@@ -34,25 +44,32 @@
   </div>
 </div>
 {{end}}
+{{ if .IsLocked }}
+<div class="order_btn">
+  Orders closed for week
+</div>
+{{ else }}
 <a href="#" class="order_btn" id="submit_btn">
- ORDER
+  ORDER
 </a>
+{{ end }}
+
 <div class="ticker">
  <span>
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
  </span>
  <span>
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
-  Menu changes weekly! - New menu Friday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
+  Menu changes weekly! - New menu Wednesday.
  </span>
 </div>
 

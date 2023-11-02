@@ -1,6 +1,10 @@
 {{define "pickup"}}
 {{template "header" args "page" "Pickup" "title" "Pickup Location" "description" "Choose a pickup location"}}
-<div class="cross_banner">You are ordering for service on Monday the 30th</div>
+{{ if .IsLocked }}
+<div class="cross_banner">Orders are closed out for the week.  Check back again Wednesday!</div>
+{{ else }}
+<div class="cross_banner">You are ordering for service on {{ .Description }}</div>
+{{ end }}
 <div class="container center_x">
 <h1 class="p mt_32">Pick up</h1>
 <div class="brown_box mt_32">US 50 Maverik - across from Slot World!</div>

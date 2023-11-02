@@ -18,7 +18,7 @@ func ProcessOrders(cfg config.Config, syncer chan struct{}) {
 
 	if slotDataExists && len(activeMenu) > 0 {
 		if !weekDataExists {
-			log.Println("Generating Intial Week")
+			log.Println("Generating Initial Week")
 			CreateNewWeek()
 		}
 		RunCutoffSchedule(syncer)

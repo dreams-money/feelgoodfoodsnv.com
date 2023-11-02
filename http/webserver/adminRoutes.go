@@ -184,19 +184,28 @@ func adminMenu(resp http.ResponseWriter, req *http.Request) {
 	}
 
 	if req.Method == http.MethodPost {
-		req.ParseForm()
+		if !app.NewWeekExists() {
+			req.ParseForm()
 
-		var activeIDs []persisters.ID
-		activeItemSubmitted := req.Form["active_menu"]
-		for _, item := range activeItemSubmitted {
-			id, err := strconv.Atoi(item)
-			if err != nil {
-				log.Println(err)
+			var activeIDs []persisters.ID
+			activeItemSubmitted := req.Form["active_menu"]
+			for _, item := range activeItemSubmitted {
+				id, err := strconv.Atoi(item)
+				if err != nil {
+					log.Println(err)
+				}
+				activeIDs = append(activeIDs, persisters.ID(id))
 			}
-			activeIDs = append(activeIDs, persisters.ID(id))
+
+			repositories.MenuItemRepo.SetActive(activeIDs)
+			log.Println("Storing last week's orders")
+			app.StoreCurrentWeeksOrders()
+			log.Println("Generating new week")
+			app.CreateNewWeek()
+			app.OrderManager.ClearOrders()
 		}
 
-		repositories.MenuItemRepo.SetActive(activeIDs)
+		app.OrderManager.UnlockOrders()
 	}
 
 	toView := make(map[string]interface{})

@@ -39,7 +39,25 @@ func (m *SlotOrderManager) LoadOrders() {
 	}
 }
 
+var ordersLocked = true
+
+func (m *SlotOrderManager) LockOrders() {
+	ordersLocked = true
+}
+
+func (m *SlotOrderManager) UnlockOrders() {
+	ordersLocked = false
+}
+
+func (m *SlotOrderManager) IsLocked() bool {
+	return ordersLocked
+}
+
 func (m *SlotOrderManager) AddOrder(s persist.ID, o repos.Order) (persist.ID, error) {
+	if m.IsLocked() {
+		return 0, errors.New("Order Manager Locked")
+	}
+
 	err := m.checkIfSlotIsFilled(s)
 	if err != nil {
 		return 0, err
@@ -73,6 +91,10 @@ func (m *SlotOrderManager) ClearOrders() {
 }
 
 func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {
+	if m.IsLocked() {
+		return errors.New("Order Manager Locked")
+	}
+
 	var systemMenuItem repos.MenuItem
 	systemOrderTotal := float32(0)
 	for _, orderMenuItem := range order.Items {

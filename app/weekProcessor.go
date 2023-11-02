@@ -14,7 +14,7 @@ import (
 	cp "github.com/otiai10/copy"
 )
 
-const cutOffTime = "Wed 12:01AM"
+const cutOffTime = "Sat 12:01AM"
 
 var CurrentWeekID persisters.ID
 
@@ -28,15 +28,11 @@ func RunCutoffSchedule(syncer chan struct{}) {
 
 	go func() {
 		for {
-			log.Println("Next cutoff time: " + nextCutOffTime.Format("Mon Jan _2 03:04PM MST 2006"))
+			log.Println("Next order cutoff time: " + nextCutOffTime.Format("Mon Jan 2 03:04PM MST 2006"))
 
 			time.Sleep(time.Until(nextCutOffTime))
 
-			log.Println("Storing last week's orders")
-			StoreCurrentWeeksOrders()
-			log.Println("Generating new week")
-			CreateNewWeek()
-			OrderManager.ClearOrders()
+			OrderManager.LockOrders()
 
 			nextCutOffTime = nextCutOffTime.AddDate(0, 0, 7)
 
@@ -62,6 +58,13 @@ func GetCurrentWeek() (repositories.Week, error) {
 	}
 
 	return currentWeek, nil
+}
+
+func NewWeekExists() bool {
+	newWeek := repositories.CreateNewWeek()
+	currentWeek, err := GetCurrentWeek()
+	logOnError(err)
+	return newWeek.Description == currentWeek.Description
 }
 
 func CreateNewWeek() {

@@ -38,31 +38,33 @@ subtractButtons.forEach(button => {
 });
 
 const submitButton = document.getElementById('submit_btn');
-submitButton.addEventListener('click', () => {
-    const orders = [];
-    let orderTotal = 0;
-    menuItems.forEach(menuItem => {
-        const orderItem = {
-            menu_item: {
-                id: parseInt(menuItem.getAttribute('menu-id')),
-            },
-            quantity: parseInt(menuItem.querySelector('.quantity').innerHTML),
-            price: parseFloat(menuItem.querySelector('.item_price').innerHTML),
-        };
-        if (orderItem.quantity > 0) {
-            orders.push(orderItem);
-            orderTotal += orderItem.quantity * orderItem.price;
-        }
-    });
+if (submitButton != null && submitButton.tagName.toLowerCase() != 'div') {
+    submitButton.addEventListener('click', () => {
+        const orders = [];
+        let orderTotal = 0;
+        menuItems.forEach(menuItem => {
+            const orderItem = {
+                menu_item: {
+                    id: parseInt(menuItem.getAttribute('menu-id')),
+                },
+                quantity: parseInt(menuItem.querySelector('.quantity').innerHTML),
+                price: parseFloat(menuItem.querySelector('.item_price').innerHTML),
+            };
+            if (orderItem.quantity > 0) {
+                orders.push(orderItem);
+                orderTotal += orderItem.quantity * orderItem.price;
+            }
+        });
 
-    if (orderTotal == 0) {
-        alert("Please add items to your order.");
-    } else if (orderTotal < 50) {
-        alert("Sorry, your order must be at least $50 to be submitted.");
-    } else {
-        saveOrder(orders, orderTotal);
-    }
-})
+        if (orderTotal == 0) {
+            alert("Please add items to your order.");
+        } else if (orderTotal < 50) {
+            alert("Sorry, your order must be at least $50 to be submitted.");
+        } else {
+            saveOrder(orders, orderTotal);
+        }
+    })
+}
 
 const parentMenuItemRelativeToKeyPress = (event) => {
     return event.target.parentElement.parentElement.parentElement;

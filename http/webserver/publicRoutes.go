@@ -23,7 +23,8 @@ func OrderPage(w http.ResponseWriter, r *http.Request) {
 	currentWeek, err := app.GetCurrentWeek()
 	errorCheckHandleGraceful(err, toView)
 	toView["MenuItems"] = currentWeek.Menu
-	toView["WeekOf"] = repositories.GetNextWeekName()
+	toView["WeekOf"] = currentWeek.Description
+	toView["IsLocked"] = app.OrderManager.IsLocked()
 
 	executeTemplate("order", w, toView)
 }
@@ -35,6 +36,7 @@ func DeliveryPage(w http.ResponseWriter, r *http.Request) {
 	errorCheckHandleGraceful(err, toView)
 	toView["Description"] = week.Description
 	toView["Slots"] = week.GetDeliverySlots()
+	toView["IsLocked"] = app.OrderManager.IsLocked()
 
 	executeTemplate("delivery", w, toView)
 }
@@ -53,12 +55,19 @@ func PickupPage(w http.ResponseWriter, r *http.Request) {
 		toView["APIKey"] = serverConfiguration.GoogleMapsAPIKeys.Production
 	}
 
+	toView["WeekOf"] = week.Description
+	toView["IsLocked"] = app.OrderManager.IsLocked()
+
 	executeTemplate("pickup", w, toView)
 }
 
 func ReviewPage(w http.ResponseWriter, r *http.Request) {
 	urlParams := r.URL.Query()
 	toView := make(map[string]interface{})
+	week, err := app.GetCurrentWeek()
+	errorCheckHandleGraceful(err, toView)
+	toView["WeekOf"] = week.Description
+	toView["IsLocked"] = app.OrderManager.IsLocked()
 
 	fetchOrderFromURL(urlParams, toView)
 
@@ -77,11 +86,21 @@ func PayPage(w http.ResponseWriter, r *http.Request) {
 	errorCheckHandleGraceful(err, toView)
 	toView["SlotType"] = slot.Type
 
+	toView["IsLocked"] = app.OrderManager.IsLocked()
+	week, err := app.GetCurrentWeek()
+	errorCheckHandleGraceful(err, toView)
+	toView["WeekOf"] = week.Description
+
 	executeTemplate("pay", w, toView)
 }
 
 func SchedulePage(w http.ResponseWriter, r *http.Request) {
-	executeTemplate("schedule", w, nil)
+	toView := make(map[string]interface{})
+	week, err := app.GetCurrentWeek()
+	errorCheckHandleGraceful(err, toView)
+	toView["WeekOf"] = week.Description
+	toView["IsLocked"] = app.OrderManager.IsLocked()
+	executeTemplate("schedule", w, toView)
 }
 
 func Submit(w http.ResponseWriter, r *http.Request) {

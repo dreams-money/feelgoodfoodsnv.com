@@ -54,7 +54,7 @@ func CreateNewWeek() Week {
 	sundayDate = sundayDate.AddDate(0, 0, 7)
 
 	// Monday
-	week.Description = sundayDate.AddDate(0, 0, 1).Format("Jan 2")
+	week.Description = formatDate(sundayDate.AddDate(0, 0, 1))
 
 	// Merge slots and orders
 	for slotId := range daySlots {
@@ -206,6 +206,19 @@ func (repo *WeekRepository) Exists(id persisters.ID) (bool, error) {
 
 func (repo *WeekRepository) List() map[persisters.ID]interface{} {
 	return repo.repo.List()
+}
+
+func formatDate(t time.Time) string {
+	suffix := "th"
+	switch t.Day() {
+	case 1, 21, 31:
+		suffix = "st"
+	case 2, 22:
+		suffix = "nd"
+	case 3, 23:
+		suffix = "rd"
+	}
+	return t.Format("Monday Jan 2" + suffix)
 }
 
 func mustMakeWeekRepository(name string) WeekRepository {
