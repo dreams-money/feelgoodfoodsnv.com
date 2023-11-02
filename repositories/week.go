@@ -77,8 +77,8 @@ func CreateNewWeek() Week {
 
 		if !weekDayExists {
 			weekDay = WeekDay{
-				Description: sundayDate.
-					AddDate(0, 0, slot.DayOfWeek).Format("2"),
+				Description: formatDayOfMonth(sundayDate.
+					AddDate(0, 0, slot.DayOfWeek)),
 				Slots: make(map[persisters.ID]FulfillmentSlot),
 			}
 		}
@@ -219,6 +219,19 @@ func formatDate(t time.Time) string {
 		suffix = "rd"
 	}
 	return t.Format("Monday Jan 2" + suffix)
+}
+
+func formatDayOfMonth(t time.Time) string {
+	suffix := "th"
+	switch t.Day() {
+	case 1, 21, 31:
+		suffix = "st"
+	case 2, 22:
+		suffix = "nd"
+	case 3, 23:
+		suffix = "rd"
+	}
+	return t.Format("2" + suffix)
 }
 
 func mustMakeWeekRepository(name string) WeekRepository {
