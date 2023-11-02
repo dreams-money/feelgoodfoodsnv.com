@@ -35,7 +35,7 @@
     <div class="slots mt_16">
         {{range $dayDescription, $day := .PickupSlots}}
         <div class="slot-object">
-            <p>{{$dayDescription}} 30th</p>
+            <p>{{ .WeekOf }}</p>
             {{range $slotID, $slot := $day.Slots}}
             <p class="slot mt_16" slot-id="{{ $slot.ID }}">{{$slot.SlotDescription}}</p>
             {{end}}
