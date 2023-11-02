@@ -7,6 +7,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type SlotOrderManager struct {
@@ -30,6 +31,11 @@ func LoadOrderManager() error {
 
 func (m *SlotOrderManager) LoadOrders() {
 	log.Println("Loading orders to order manager")
+
+	weekDay := time.Now().Weekday()
+	if weekDay == 3 || weekDay == 4 || weekDay == 5 {
+		ordersLocked = false
+	}
 
 	for id := range repos.OrderRepo.List() {
 		var order repos.Order
