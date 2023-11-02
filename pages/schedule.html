@@ -3,7 +3,7 @@
 {{ if .IsLocked }}
 <div class="cross_banner">Orders are closed out for the week.  Check back again Wednesday!</div>
 {{ else }}
-<div class="cross_banner">You are ordering for service on {{ .Description }}</div>
+<div class="cross_banner">You are ordering for service on {{.WeekOf }}</div>
 {{ end }}
 <div class="container">
     <a href="/pickup" class="brown_box link">Pickup</a>
