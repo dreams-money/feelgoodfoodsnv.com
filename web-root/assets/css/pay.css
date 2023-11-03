@@ -179,4 +179,5 @@ input[type="submit"] {
   text-align: center;
   box-shadow: var(--button-shadow);
   border: 0px;
+  cursor: pointer;
 }
