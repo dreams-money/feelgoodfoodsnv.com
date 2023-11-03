@@ -77,11 +77,13 @@
                   {{(index $order.Customer.Addresses 0).State}}
                   {{(index $order.Customer.Addresses 0).Postal}}
               </div>
-              {{else}}
-              <div class="ml_42 mt_16">
-                Pickup: {{$order.FulfillmentSlot.SlotDescription}}
-              </div>
               {{end}}
+              <div class="ml_42 mt_16">
+                <u>Allergies</u>: {{$order.Customer.Allergies}}
+              </div>
+              <div class="ml_42 mt_16">
+                {{$order.FulfillmentSlot.SlotDescription}}
+              </div>
           </div>
           {{ end }}
       </div>

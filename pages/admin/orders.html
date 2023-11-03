@@ -49,6 +49,9 @@
                 {{ $orderItem.MenuItem.Name }} - {{ $orderItem.Quantity }}
             </span>
         {{ end }}
+        <span class="mt_8 mb_6 allergies">
+            <u>Allergies</u>:  {{$order.Customer.Allergies}}
+          </span>
       </div>
     {{ end }}
     <hr class="mt_16">
