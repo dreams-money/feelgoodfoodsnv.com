@@ -102,14 +102,10 @@ async function getAllowedZipCodes(slotId) {
 
 function getCustomer() {
   const form = document.getElementById('customer_form');
-  const inputs = form.children;
+  const inputs = form.querySelectorAll('input')
   const customer = {}
   for (let i = 0; i < inputs.length; i++) {
-    let inputType = inputs[i].getAttribute('type');
-    let inputName = inputs[i].getAttribute('name');
-    if (inputType != 'submit' && inputName != 'nds-pmd') {
-      customer[inputName] = inputs[i].value;
-    }
+    customer[inputs[i].name] = inputs[i].value;
   }
 
   if (customer.hasOwnProperty('postal')) {
