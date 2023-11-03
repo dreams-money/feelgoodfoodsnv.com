@@ -32,9 +32,11 @@
 
     <div class="mt_16">
         <strong>Totals by Meal: </strong>
-        {{ range $meal, $total := .OrderSheet.TotalsByMeal }}
-        <span class="order_item">{{ $meal }} - {{ $total }}</span>
-        {{ end }}
+        <div class="order_items">
+            {{ range $meal, $total := .OrderSheet.TotalsByMeal }}
+            <span class="order_item">{{ $meal }} - {{ $total }}</span>
+            {{ end }}
+        </div>
     </div>
     <hr>
 
