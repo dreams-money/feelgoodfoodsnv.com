@@ -72,7 +72,7 @@ func CreateDeliverySheet() DeliveryReport { //At this level "fulfillment" and de
 		if len(order.Customer.Addresses) > 0 {
 			city = order.Customer.Addresses[0].City
 		} else {
-			city = "No Address"
+			city = "Pickup"
 		}
 
 		ordersForCity, found := report.Areas[city]
