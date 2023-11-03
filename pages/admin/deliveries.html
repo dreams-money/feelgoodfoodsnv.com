@@ -52,7 +52,7 @@
     {{ range $city, $deliveryArea := .DeliverySheet.Areas}}
     <hr>
     <h2 class="mt_16">{{ $city }}</h2>
-      <div class="orders mt_16">
+      <div class="orders mt_16 mb_16">
           {{ range $ID, $order := $deliveryArea.OrderMap }}
           <div class="order order_border">
               <div class="mt_8 order_items">
