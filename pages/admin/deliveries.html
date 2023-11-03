@@ -36,6 +36,11 @@
         border: 1px solid black;
         border-radius: 16px;
     }
+    .order_items{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
 </style>
 <div class="container">
     <h1>Delivery Sheet</h1>
@@ -50,7 +55,7 @@
       <div class="orders mt_16">
           {{ range $ID, $order := $deliveryArea.OrderMap }}
           <div class="order order_border">
-              <div class="mt_8">
+              <div class="mt_8 order_items">
                   {{ $ID }} - <strong>{{ $order.Customer.FirstName }} {{ $order.Customer.LastName }}:</strong>
                   {{ range $orderItem := $order.Items }}
                       <span class="ml_8 order_border">
