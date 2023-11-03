@@ -23,6 +23,9 @@
         border-radius: 4px;
         margin: 2px 0;
     }
+    .allergies {
+        background-color: yellow;
+    }
 </style>
 <div class="container">
     <div class="mt_16">
@@ -49,9 +52,11 @@
                 {{ $orderItem.MenuItem.Name }} - {{ $orderItem.Quantity }}
             </span>
         {{ end }}
+        {{ if $order.Customer.Allergies }}
         <span class="mt_8 mb_6 allergies">
             <u>Allergies</u>:  {{$order.Customer.Allergies}}
           </span>
+        {{ end }}
       </div>
     {{ end }}
     <hr class="mt_16">
