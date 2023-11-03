@@ -12,6 +12,17 @@
     .mb_8 {
         margin-bottom: 8px;
     }
+    .order_items{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .order_item {
+        border: 1px solid black;
+        padding: 2px 4px;
+        border-radius: 4px;
+        margin: 2px 0;
+    }
 </style>
 <div class="container">
     <div class="mt_16">
@@ -29,10 +40,10 @@
 
     <h2 class="mt_16 mb_8">Orders: </h2>
     {{ range $ID, $order := .OrderSheet.Orders }}
-      <div>
+      <div class="order_items">
         {{ $ID }} - <strong>{{ $order.Customer.FirstName }} {{ $order.Customer.LastName }}:</strong>
         {{ range $orderItem := $order.Items }}
-            <span>
+            <span class="order_item">
                 {{ $orderItem.MenuItem.Name }} - {{ $orderItem.Quantity }}
             </span>
         {{ end }}
