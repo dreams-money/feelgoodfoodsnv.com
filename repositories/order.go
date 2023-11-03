@@ -19,6 +19,7 @@ type Order struct {
 	Fees              map[string]float32 `json:"fees,omitempty"`
 	GrandTotal        float32            `json:"total,omitempty"`
 	*Timestamps       `json:"timestamps,omitempty"`
+	FulfillmentSlot
 }
 
 func (order *Order) Total() float32 {

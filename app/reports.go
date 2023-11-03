@@ -3,6 +3,7 @@ package app
 import (
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/persisters"
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/repositories"
+	"log"
 )
 
 type OrderSheet struct {
@@ -55,7 +56,17 @@ func CreateDeliverySheet() DeliveryReport { //At this level "fulfillment" and de
 
 	for orderID := range repositories.OrderRepo.List() {
 		var order repositories.Order
-		repositories.OrderRepo.Get(orderID, &order)
+		err := repositories.OrderRepo.Get(orderID, &order)
+		if err != nil {
+			log.Println(err)
+		}
+
+		var slot repositories.FulfillmentSlot
+		err = repositories.FulfillmentSlotRepo.Get(order.FulfillmentSlotID, &slot)
+		if err != nil {
+			log.Println(err)
+		}
+		order.FulfillmentSlot = slot
 
 		var city string
 		if len(order.Customer.Addresses) > 0 {
