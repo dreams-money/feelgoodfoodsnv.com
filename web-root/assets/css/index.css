@@ -87,16 +87,20 @@ a {
   margin-top: 50px;
 }
 
-.continue {
+.brown_btn {
+  display: block;
   width: 160px;
   height: 26px;
-  position: relative;
-  left: 120px;
-
   border-radius: 100%;
   background-color: rgb(108, 81, 81); /* Darker than shae */
   text-align: center;
   line-height: 1.5;
+  cursor: pointer;
+}
+
+.continue {
+  position: relative;
+  left: 120px;
 }
 
 @media only screen and (max-width: 400px) {
@@ -105,7 +109,6 @@ a {
   }
 }
 
-.continue:hover {
+.brown_btn:hover {
   text-decoration: underline;
-  cursor: pointer;
 }
