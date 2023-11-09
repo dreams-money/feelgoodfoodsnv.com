@@ -103,3 +103,7 @@ func ClearMenuItemPhotosFromOrderItems(items []OrderItem) {
 		items[i].MenuItem.Image = ""
 	}
 }
+
+func ReloadOrderRepo() {
+	OrderRepo = mustMakeOrderRepo("data/orders")
+}

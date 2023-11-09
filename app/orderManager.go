@@ -94,6 +94,7 @@ func (m *SlotOrderManager) ClearOrders() {
 	if err != nil {
 		log.Println(err)
 	}
+	repos.ReloadOrderRepo()
 }
 
 func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {
