@@ -23,7 +23,7 @@ func ServeHTTP(cfg config.Config, sync chan struct{}) {
 }
 
 func runDevServer(cfg config.Config, sync chan struct{}) {
-	httpPort := ":80"
+	httpPort := fmt.Sprintf(":%v", cfg.HttpPort)
 	log.Println("Starting on Web on port " + httpPort)
 
 	go func() {
