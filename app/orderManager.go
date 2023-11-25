@@ -32,7 +32,12 @@ func LoadOrderManager() error {
 func (m *SlotOrderManager) LoadOrders() {
 	log.Println("Loading orders to order manager")
 
-	weekDay := time.Now().Weekday()
+	loc, err := time.LoadLocation("America/Los_Angeles")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	weekDay := time.Now().In(loc).Weekday()
 	if weekDay == 3 || weekDay == 4 || weekDay == 5 {
 		ordersLocked = false
 	}
