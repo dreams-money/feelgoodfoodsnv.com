@@ -4,11 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 
 	"DreamsMoney/feelgoodfoodsnv.com/ordering/config"
-
-	"golang.org/x/crypto/acme/autocert"
 )
 
 func ServeHTTP(cfg config.Config, sync chan struct{}) {
@@ -34,35 +31,7 @@ func runDevServer(cfg config.Config, sync chan struct{}) {
 }
 
 func runProdServer(cfg config.Config, sync chan struct{}) {
-	// Automated SSL certs using Let's Encrypt HTTP-01
-	// Multi porting an application will require DNS-01 challenge..
-	certManager := autocert.Manager{
-		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist(cfg.Hosts...),
-		Cache:      autocert.DirCache("certs"),
-	}
-
-	httpsPort := fmt.Sprintf(":" + strconv.Itoa(cfg.TLSPort))
-	webServer := &http.Server{
-		Addr:      httpsPort,
-		TLSConfig: certManager.TLSConfig(),
-		Handler:   RegisterWebRoutes(cfg),
-	}
-
-	go func() {
-		log.Fatal(webServer.ListenAndServeTLS("", "")) // HTTPS
-		sync <- struct{}{}
-	}()
-
-	webPort := fmt.Sprintf(":" + strconv.Itoa(cfg.HttpPort))
-	handler := certManager.HTTPHandler(RegisterWebRoutes(cfg))
-	go func() {
-		log.Fatal(http.ListenAndServe(webPort, redirectToSSL(handler))) // Web
-		sync <- struct{}{}
-	}()
-
-	m := "Serving: %+v on ports ssl:%v http:%v"
-	log.Printf(m, cfg.Hosts, httpsPort, webPort)
+	runDevServer(cfg, sync)
 }
 
 func httpSubscribers(server http.Handler) http.Handler {
