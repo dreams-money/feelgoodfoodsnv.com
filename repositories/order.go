@@ -5,9 +5,10 @@ import (
 )
 
 type OrderItem struct {
-	MenuItem `json:"menu_item"`
-	Quantity int     `json:"quantity"`
-	Price    float32 `json:"price"`
+	MenuItem     `json:"menu_item"`
+	Quantity     int     `json:"quantity"`
+	Price        float32 `json:"price"`
+	ExtraProtien bool    `json:"extra_protien"`
 }
 
 type Order struct {
@@ -50,7 +51,8 @@ func FillMenuItemDetails(order *Order) error {
 				Image:       systemMenuItem.Image,
 				Description: systemMenuItem.Description,
 			},
-			Price: item.Price,
+			Price:        item.Price,
+			ExtraProtien: item.ExtraProtien,
 		})
 	}
 

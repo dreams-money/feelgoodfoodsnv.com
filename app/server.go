@@ -22,7 +22,7 @@ func ProcessOrders(cfg config.Config, syncer chan struct{}) {
 			CreateNewWeek()
 		}
 		RunCutoffSchedule(syncer)
-		LoadOrderManager()
+		LoadOrderManager(cfg)
 	} else {
 		log.Println("NOTICE - configure your menu and order fulfillment slots then restart the " +
 			"system to load the order manager.  This required restart is required only one time.")

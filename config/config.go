@@ -17,6 +17,7 @@ type Config struct {
 	MailerKeys         EnvKeys  `json:"mailer_key"`
 	MailerFromName     EnvKeys  `json:"mailer_from_name"`
 	MailerFromEmail    EnvKeys  `json:"mailer_from_email"`
+	AcceptOrderDays    []int    `json:"accept_order_days"`
 }
 
 type EnvKeys struct {

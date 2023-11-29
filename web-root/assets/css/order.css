@@ -49,6 +49,7 @@ hr {
   width: 80%;
   max-width: 800px;
   gap: 8px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 }
 
 .menu_item_photo {
@@ -94,7 +95,7 @@ hr {
 
 .menu_item_detail {
   display: inline-block;
-  width: 180px;
+  width: 220px;
 }
 
 .description {
@@ -110,7 +111,7 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
+  /* opacity: 0; */
   margin-top: 32px;
 }
 
@@ -120,7 +121,7 @@ hr {
   padding: 0 8px;
 }
 
-.quantity_btn {
+.control_btn {
   --size: 50px;
   width: var(--size);
   height: var(--size);
@@ -130,6 +131,21 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.addon_control {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.protien_btn {
+  border: 1px solid transparent;
+}
+
+.protien_btn img {
+  width: 1.25em;
+  pointer-events: none;
 }
 
 .order_btn {

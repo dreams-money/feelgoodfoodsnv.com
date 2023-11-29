@@ -15,6 +15,8 @@ const addButtons = document.querySelectorAll('.add');
 addButtons.forEach(button => {
     button.addEventListener('click', event => {
         event.stopPropagation();
+        const menuItem = parentMenuItemRelativeToKeyPress(event)
+        menuItem.style.borderColor = 'var(--border-visible)';
         const quantity = button.parentElement.querySelector('.quantity');
         const currentAmount = parseInt(quantity.innerHTML);
         if (currentAmount < maxAllowableQuantity) {
@@ -37,18 +39,40 @@ subtractButtons.forEach(button => {
     });
 });
 
+const protienButtons = document.querySelectorAll('.protien_btn');
+protienButtons.forEach(button => {
+    button.addEventListener('click', event => {
+        const img = event.target.querySelector('img');
+        if (img == null) {
+            return;
+        }
+        if (event.target.selected) {
+            event.target.selected = false;
+            img.src = '/assets/icons/x-solid.svg';
+        } else {
+            event.target.selected = true;
+            img.src = '/assets/icons/check-solid.svg';
+        }
+    });
+});
+
 const submitButton = document.getElementById('submit_btn');
 if (submitButton != null && submitButton.tagName.toLowerCase() != 'div') {
     submitButton.addEventListener('click', () => {
         const orders = [];
         let orderTotal = 0;
         menuItems.forEach(menuItem => {
+            let extraProtien = false;
+            if (menuItem.querySelector('.protien_btn').selected) {
+                extraProtien = menuItem.querySelector('.protien_btn').selected;
+            }
             const orderItem = {
                 menu_item: {
                     id: parseInt(menuItem.getAttribute('menu-id')),
                 },
                 quantity: parseInt(menuItem.querySelector('.quantity').innerHTML),
                 price: parseFloat(menuItem.querySelector('.item_price').innerHTML),
+                extra_protien: extraProtien,
             };
             if (orderItem.quantity > 0) {
                 orders.push(orderItem);
@@ -75,8 +99,8 @@ const unselectMenuItemWithClickEvent = event => {
     const quantity = menuItem.querySelector('.quantity')
     const quantityControl = menuItem.querySelector('.quantity_control');
 
-    quantity.innerHTML = 1;
-    quantityControl.style.opacity = 0;
+    quantity.innerHTML = 0;
+    // quantityControl.style.opacity = 0;
     menuItem.style.borderColor = 'var(--border-nosee)';
 }
 

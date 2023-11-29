@@ -1,6 +1,7 @@
 package app
 
 import (
+	"DreamsMoney/feelgoodfoodsnv.com/ordering/config"
 	persist "DreamsMoney/feelgoodfoodsnv.com/ordering/persisters"
 	repos "DreamsMoney/feelgoodfoodsnv.com/ordering/repositories"
 	"errors"
@@ -24,12 +25,12 @@ type OrderSubmission struct {
 
 var OrderManager SlotOrderManager
 
-func LoadOrderManager() error {
-	OrderManager = mustMakeManager()
+func LoadOrderManager(cfg config.Config) error {
+	OrderManager = mustMakeManager(cfg)
 	return nil
 }
 
-func (m *SlotOrderManager) LoadOrders() {
+func (m *SlotOrderManager) LoadOrders(cfg config.Config) {
 	log.Println("Loading orders to order manager")
 
 	loc, err := time.LoadLocation("America/Los_Angeles")
@@ -38,8 +39,11 @@ func (m *SlotOrderManager) LoadOrders() {
 	}
 
 	weekDay := time.Now().In(loc).Weekday()
-	if weekDay == 3 || weekDay == 4 || weekDay == 5 {
-		ordersLocked = false
+	for _, day := range cfg.AcceptOrderDays {
+		if int(weekDay) == day {
+			ordersLocked = false
+			break
+		}
 	}
 
 	for id := range repos.OrderRepo.List() {
@@ -145,7 +149,7 @@ func (m *SlotOrderManager) ReviewOrder(order repos.Order) error {
 	return m.checkIfSlotIsFilled(order.FulfillmentSlotID)
 }
 
-func makeManager() (SlotOrderManager, error) {
+func makeManager(cfg config.Config) (SlotOrderManager, error) {
 	var manager SlotOrderManager
 
 	currentWeek, err := GetCurrentWeek()
@@ -161,13 +165,13 @@ func makeManager() (SlotOrderManager, error) {
 
 	manager.orders = repos.OrderRepo
 	manager.slotFills = make(map[persist.ID]int)
-	manager.LoadOrders()
+	manager.LoadOrders(cfg)
 
 	return manager, nil
 }
 
-func mustMakeManager() SlotOrderManager {
-	manager, err := makeManager()
+func mustMakeManager(cfg config.Config) SlotOrderManager {
+	manager, err := makeManager(cfg)
 	haltOnError(err)
 	return manager
 }
@@ -203,8 +207,16 @@ func FillOrderFees(order *repos.Order) error {
 		order.Fees = make(map[string]float32)
 	}
 
+	// Slot fees, I.e. delivery fees
 	if orderSlot.Fee != nil {
 		order.Fees[orderSlot.Fee.Name] = orderSlot.Fee.Amount
+	}
+
+	// Extra protien fees
+	for _, orderItem := range order.Items {
+		if orderItem.ExtraProtien {
+			order.Fees["Extra Protien"] += float32(2) * float32(orderItem.Quantity)
+		}
 	}
 
 	return nil
